@@ -4,7 +4,7 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const app = express();
 const algorithms = require('./algorithms');
-
+const dbController = require('../database/database-controller');
 //Middleware - body-parser json
 app.use(bodyparser.json())
 
