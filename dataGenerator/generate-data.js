@@ -41,9 +41,7 @@ let rescueData = {
 
 
 const clearDatabase = () => {
-    //this clears the redis database and overrides data
-
-
+    //will be cleared by the special API - for test purposes
 }
 const initializeDatabaseIfEmpty = () => {
     //this does fill the database with data if it's empty
