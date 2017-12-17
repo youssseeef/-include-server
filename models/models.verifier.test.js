@@ -57,3 +57,54 @@ console.log('goodRescueModelFromDevice: ' +
 
 console.log('badRescueModelFromDevice: ' +
     modelsVerifier.verifyRescueModelFromDevice(badRescueModelFromDevice) == false);
+
+/**
+ * In Database Models Verification
+ * 
+ */
+
+const goodAmbulanceModelInDatabase = {
+
+};
+
+//should return false
+const badAmbulanceModelInDatabase = {
+
+};
+
+
+//should return true
+const goodCarPacketModelInDatabase = {
+
+};
+
+//should return false
+const badCarPacketModelInDatabase = {
+
+};
+
+//should return true
+const goodRescueModelInDatabase = {
+
+};
+//should return false
+const badRescueModelInDatabase = {
+
+};
+console.log('goodAmbulanceModelInDatabase: ' +
+    modelsVerifier.verifyAmbulanceModelInDatabase(goodAmbulanceModelInDatabase) == true);
+
+console.log('badAmbulanceModelInDatabase: ' +
+    modelsVerifier.verifyAmbulanceModelInDatabase(badAmbulanceModelInDatabase) == false);
+
+console.log('goodCarPacketModelInDatabase: ' +
+    modelsVerifier.verifyCarPacketModelInDatabase(goodCarPacketModelInDatabase) == true);
+
+console.log('badCarPacketModelInDatabase: ' +
+    modelsVerifier.verifyCarPacketModelInDatabase(badCarPacketModelInDatabase) == false);
+
+console.log('goodRescueModelInDatabase: ' +
+    modelsVerifier.verifyRescueModelInDatabase(goodRescueModelInDatabase) == true);
+
+console.log('badRescueModelInDatabase: ' +
+    modelsVerifier.verifyRescueModelInDatabase(badRescueModelInDatabase) == false);
