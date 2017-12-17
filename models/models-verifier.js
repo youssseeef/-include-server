@@ -11,24 +11,35 @@ const rescueModelInDatabase = require('./rescue-model-in-database.model');
  * That way, anyone can only add new data types in the model itself
  * without having to modify much code
  */
-function verifyAmbulanceModelFromDevice() {
+function verifyAmbulanceModelFromDevice(object) {
 
 }
 
-function verifyAmbulanceModelInDatabase() {
+function verifyAmbulanceModelInDatabase(object) {
 
 }
 
-function verifyCarPacketModelFromDevice() {
+function verifyCarPacketModelFromDevice(object) {
 
 }
 
-function verifyCarPacketModelInDatabase() {
+function verifyCarPacketModelInDatabase(object) {
 
 }
+
+function verifyRescueModelFromDevice(object) {
+
+}
+
+function verifyRescueModelInDatabase(object) {
+
+}
+
 module.exports = {
     verifyAmbulanceModelFromDevice,
     verifyAmbulanceModelInDatabase,
     verifyCarPacketModelFromDevice,
-    verifyCarPacketModelInDatabase
+    verifyCarPacketModelInDatabase,
+    verifyRescueModelFromDevice,
+    verifyRescueModelInDatabase
 }
