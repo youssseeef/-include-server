@@ -11,32 +11,42 @@ const modelsVerifier = require('./models-verifier');
 
 //should return true
 const goodAmbulanceModelFromDevice = {
-
+    carId: 'ceq23qd23q2exdqweqcq23q23',
+    location: '12.4123,42.3142,4.4'
 };
 
 //should return false
 const badAmbulanceModelFromDevice = {
-
+    carId: 23123,
+    location: '12.4123,42.3142,4.4'
 };
 
 
 //should return true
 const goodCarPacketModelFromDevice = {
-
+    carId: 'ceq23qd23q2exdqweqcq23q23',
+    location: '12.4123,42.3142,4.4',
+    accident_status: 2,
+    speed: 23
 };
 
 //should return false
 const badCarPacketModelFromDevice = {
-
+    carId: 'ceq23qd23q2exdqweqcq23q23',
+    location: '12.4123,42.3142,4.4',
+    accident_status: 2,
+    speed: '3124142123123'
 };
 
 //should return true
 const goodRescueModelFromDevice = {
-
+    carId: 'ceq23qd23q2exdqweqcq23q23',
+    location: '12.4123,42.3142,4.4',
 };
 //should return false
 const badRescueModelFromDevice = {
-
+    carId: 4324234234234,
+    location: '12.4123,42.3142,4.4'
 };
 
 
