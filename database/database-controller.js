@@ -1,5 +1,5 @@
 const redis = require('redis');
-const client = redis.createClient();
+const client = redis.createClient(process.env.REDIS_URL);
 /**
  * This file is supposed to be what interacts with the database
  * Functions should mainly update items in the database.
