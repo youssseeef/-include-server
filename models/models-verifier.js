@@ -5,14 +5,19 @@ const carPacketModelInDatabase = require('./car-packet-model-in-database.model')
 const rescueModelFromDevice = require('./rescue-model-from-device.model');
 const rescueModelInDatabase = require('./rescue-model-in-database.model');
 
-/**
+/*
  * Each of the following functions verifies that the input object
  * comforms with the model's design
  * That way, anyone can only add new data types in the model itself
  * without having to modify much code
  */
 function verifyAmbulanceModelFromDevice(object) {
-
+    if (object && object.carId && object.location && (typeof(object.carId) === 'string') &&
+        (typeof(object.location) === 'string')) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function verifyAmbulanceModelInDatabase(object) {

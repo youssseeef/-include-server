@@ -29,7 +29,6 @@ const goodCarPacketModelFromDevice = {
     accident_status: 2,
     speed: 23
 };
-
 //should return false
 const badCarPacketModelFromDevice = {
     carId: 'ceq23qd23q2exdqweqcq23q23',
@@ -51,22 +50,22 @@ const badRescueModelFromDevice = {
 
 
 console.log('goodAmbulanceModelFromDevice: ' +
-    modelsVerifier.verifyAmbulanceModelFromDevice(goodAmbulanceModelFromDevice) == true);
+    (modelsVerifier.verifyAmbulanceModelFromDevice(goodAmbulanceModelFromDevice) == true));
 
 console.log('badAmbulanceModelFromDevice: ' +
-    modelsVerifier.verifyAmbulanceModelFromDevice(badAmbulanceModelFromDevice) == false);
+    (modelsVerifier.verifyAmbulanceModelFromDevice(badAmbulanceModelFromDevice) == false));
 
 console.log('goodCarPacketModelFromDevice: ' +
-    modelsVerifier.verifyCarPacketModelFromDevice(goodCarPacketModelFromDevice) == true);
+    (modelsVerifier.verifyCarPacketModelFromDevice(goodCarPacketModelFromDevice) == true));
 
 console.log('badCarPacketModelFromDevice: ' +
-    modelsVerifier.verifyCarPacketModelFromDevice(badCarPacketModelFromDevice) == false);
+    (modelsVerifier.verifyCarPacketModelFromDevice(badCarPacketModelFromDevice) == false));
 
 console.log('goodRescueModelFromDevice: ' +
-    modelsVerifier.verifyRescueModelFromDevice(goodRescueModelFromDevice) == true);
+    (modelsVerifier.verifyRescueModelFromDevice(goodRescueModelFromDevice) == true));
 
 console.log('badRescueModelFromDevice: ' +
-    modelsVerifier.verifyRescueModelFromDevice(badRescueModelFromDevice) == false);
+    (modelsVerifier.verifyRescueModelFromDevice(badRescueModelFromDevice) == false));
 
 /**
  * In Database Models Verification
@@ -102,19 +101,19 @@ const badRescueModelInDatabase = {
 
 };
 console.log('goodAmbulanceModelInDatabase: ' +
-    modelsVerifier.verifyAmbulanceModelInDatabase(goodAmbulanceModelInDatabase) == true);
+    (modelsVerifier.verifyAmbulanceModelInDatabase(goodAmbulanceModelInDatabase) == true));
 
 console.log('badAmbulanceModelInDatabase: ' +
-    modelsVerifier.verifyAmbulanceModelInDatabase(badAmbulanceModelInDatabase) == false);
+    (modelsVerifier.verifyAmbulanceModelInDatabase(badAmbulanceModelInDatabase) == false));
 
 console.log('goodCarPacketModelInDatabase: ' +
-    modelsVerifier.verifyCarPacketModelInDatabase(goodCarPacketModelInDatabase) == true);
+    (modelsVerifier.verifyCarPacketModelInDatabase(goodCarPacketModelInDatabase) == true));
 
 console.log('badCarPacketModelInDatabase: ' +
-    modelsVerifier.verifyCarPacketModelInDatabase(badCarPacketModelInDatabase) == false);
+    (modelsVerifier.verifyCarPacketModelInDatabase(badCarPacketModelInDatabase) == false));
 
 console.log('goodRescueModelInDatabase: ' +
-    modelsVerifier.verifyRescueModelInDatabase(goodRescueModelInDatabase) == true);
+    (modelsVerifier.verifyRescueModelInDatabase(goodRescueModelInDatabase) == true));
 
 console.log('badRescueModelInDatabase: ' +
-    modelsVerifier.verifyRescueModelInDatabase(badRescueModelInDatabase) == false);
+    (modelsVerifier.verifyRescueModelInDatabase(badRescueModelInDatabase) == false));
