@@ -1,6 +1,9 @@
 var locationHelper = require('./locationHelpers');
 var request = require('request');
 var gMapsApiKey = process.env.GMAPS_API_KEY;
+var googleMapsClient = require('@google/maps').createClient({
+    key: gMapsApiKey
+});
 //The controller mainly interacts with Google Maps API
 //The controller also uses helper function to take actions
 //based on the distance between things and their location.
