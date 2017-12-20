@@ -9,7 +9,7 @@ const bodyparser = require('body-parser');
 const app = express();
 const algorithms = require('./algorithms');
 const dbController = require('../database/database-controller');
-
+const gmaps = require('../locationAPIs/locationController');
 
 //Middleware - body-parser json
 app.use(bodyparser.json())
