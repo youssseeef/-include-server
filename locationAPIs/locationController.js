@@ -1,6 +1,7 @@
 var locationHelper = require('./locationHelpers');
 var request = require('request');
-var gMapsApiKey = process.env.GMAPS_API_KEY;
+var apis = require('../apis')
+var gMapsApiKey = process.env.GMAPS_API_KEY | apis.mapsapi;
 var googleMapsClient = require('@google/maps').createClient({
     key: gMapsApiKey
 });
@@ -9,7 +10,7 @@ var googleMapsClient = require('@google/maps').createClient({
 //based on the distance between things and their location.
 //This function takes the GPS location and callbacks the roadName to the caller.
 function fetchRoadName(lat, lng, alt, callback) {
-
+    googleMapsClient.geoCode()
 }
 //this function takes an array of ambulances/rescue cars and calculates the 
 //time taken from each of them to the accident in the 2nd,3rd and 4th arguments

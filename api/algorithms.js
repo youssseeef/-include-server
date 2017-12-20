@@ -2,7 +2,7 @@ function timeStampGenerator() {
     return +new Date;
 }
 
-function accidentOccured() {
+function accidentOccured(affectedCarId, affectedCarLocation, affectedCarRoad) {
 
 }
 
