@@ -19,7 +19,14 @@ let distanceBetweenTwoPoints = function distanceBetweenTwoPoints(p1, p2) {
     return d;
 }
 let approximateLocation = function approximatePoint(lat, lon) {
-    //this should truncate the first 2 digits of a location.
+    //this should truncate the last 2 digits of a location.
+    let lat_truncated = Math.round(lat).toFixed(4);
+    let long_truncated = Math.round(long).toFixed(4);
+    return {
+        lat: lat_truncated,
+        lon: long_truncated
+    }
+
 }
 module.exports = {
     distanceBetweenTwoPoints
