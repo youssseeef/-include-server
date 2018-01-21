@@ -3,7 +3,7 @@
  * This initializes the server with the data for the cars and the initial stuff
  */
 const redis = require('redis');
-const client = redis.createClient();
+const client = redis.createClient(process.env.REDIS_URL);
 const dbController = require('../database/database-controller');
 
 // run with caution
