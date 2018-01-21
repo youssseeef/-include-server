@@ -10,7 +10,7 @@ const app = express();
 const algorithms = require('./algorithms');
 const dbController = require('../database/database-controller');
 const gmaps = require('../locationAPIs/locationController');
-
+const dataGenerator = require('../dataGenerator/generate-data');
 //Middleware - body-parser json
 app.use(bodyparser.json())
 
@@ -75,7 +75,7 @@ app.post('/api/sos/ambulance', (req, res) => {
  * and restore it to its original state.
  * This should be deleted after testing in the deployment version.
  */
-app.post('/api/restoredb', (req, res) => {
-    res.sendStatus(200);
-});
+app.get('/api/reset', (req, res) => {
+    dataGenerator.clearAndReset();
+})
 module.exports = app;

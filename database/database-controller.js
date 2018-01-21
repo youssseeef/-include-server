@@ -8,7 +8,7 @@ const client = redis.createClient(process.env.REDIS_URL);
  */
 
 function updateCarData(newData, carId) {
-    client.hset('cars', carId, newData);
+    client.hset('cars', carId + '', JSON.stringify(newData));
 }
 
 function getCarData(carId, callback) {
@@ -24,7 +24,60 @@ function getCarData(carId, callback) {
     })
 }
 
-module.exports = [
+function updateRescueData(newData, carId) {
+    client.hset('rescue', carId + '', JSON.stringify(newData));
+}
+
+function getRescueData(carId, callback) {
+    client.hget('rescue', carId, function(returnedData) {
+        try {
+            let data = JSON.parse(returnedData);
+            callback(data);
+        } catch (err) {
+            return {
+                'error': 'Can not access car data from the database'
+            }
+        }
+    })
+}
+
+function updateAmbulanceData(newData, carId) {
+    client.hset('ambulance', carId, newData);
+}
+
+function getAmbulanceData(carId, callback) {
+    client.hget('ambulance', carId, function(returnedData) {
+        try {
+            let data = JSON.parse(returnedData);
+            callback(data);
+        } catch (err) {
+            return {
+                'error': 'Can not access car data from the database'
+            }
+        }
+    })
+}
+
+function setApproxLocation(carId, long, lat, newData) {
+    let longitude = parseFloat(parseFloat(String(long)).toFixed(2));
+    let latitude = parseFloat(parseFloat(String(lat)).toFixed(2));
+    client.hset('location_' + longitude + ';' + latitude, carId, newData);
+}
+
+function getCarIdsApproxLocation(long, lat, callback) {
+    let longitude = parseFloat(parseFloat(String(long)).toFixed(2));
+    let latitude = parseFloat(parseFloat(String(lat)).toFixed(2));
+    client.hgetall('location_' + longitude + ';' + latitude, (error, response) => {
+        callback(JSON.parse(response));
+    })
+}
+module.exports = {
     updateCarData,
-    getCarData
-]
+    getCarData,
+    updateAmbulanceData,
+    getAmbulanceData,
+    updateRescueData,
+    getRescueData,
+    setApproxLocation,
+    getCarIdsApproxLocation
+}
