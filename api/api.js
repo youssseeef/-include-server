@@ -77,5 +77,6 @@ app.post('/api/sos/ambulance', (req, res) => {
  */
 app.get('/api/reset', (req, res) => {
     dataGenerator.clearAndReset();
+    res.sendStatus(200);
 })
 module.exports = app;
