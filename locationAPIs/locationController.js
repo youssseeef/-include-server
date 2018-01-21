@@ -1,5 +1,6 @@
 var locationHelper = require('./locationHelpers');
 var request = require('request');
+var apis = require('../apis');
 var gMapsApiKey = process.env.GMAPS_API_KEY | apis.mapsapi;
 var googleMapsClient = require('@google/maps').createClient({
     key: gMapsApiKey
