@@ -75,7 +75,7 @@ app.post('/api/sos/ambulance', (req, res) => {
  * and restore it to its original state.
  * This should be deleted after testing in the deployment version.
  */
-app.get('/api/reset', (req, res) => {
+app.post('/api/reset', (req, res) => {
     dataGenerator.clearAndReset();
     res.sendStatus(200);
 })
