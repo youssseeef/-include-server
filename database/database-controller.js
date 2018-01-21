@@ -29,7 +29,7 @@ function updateRescueData(newData, carId) {
 }
 
 function getRescueData(carId, callback) {
-    client.hget('rescue', carId, function(returnedData) {
+    client.hget('rescue', carId + '', function(returnedData) {
         try {
             let data = JSON.parse(returnedData);
             callback(data);
@@ -42,7 +42,7 @@ function getRescueData(carId, callback) {
 }
 
 function updateAmbulanceData(newData, carId) {
-    client.hset('ambulance', carId, newData);
+    client.hset('ambulance', carId + '', JSON.stringify(newData));
 }
 
 function getAmbulanceData(carId, callback) {
@@ -61,7 +61,7 @@ function getAmbulanceData(carId, callback) {
 function setApproxLocation(carId, long, lat, newData) {
     let longitude = parseFloat(parseFloat(String(long)).toFixed(2));
     let latitude = parseFloat(parseFloat(String(lat)).toFixed(2));
-    client.hset('location_' + longitude + ';' + latitude, carId, newData);
+    client.hset('location_' + longitude + ';' + latitude, carId, JSON.stringify(newData));
 }
 
 function getCarIdsApproxLocation(long, lat, callback) {
