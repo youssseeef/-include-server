@@ -22,8 +22,8 @@ let distanceBetweenTwoPoints = function distanceBetweenTwoPoints(p1, p2) {
 
 let approximateLocation = function approximatePoint(lat, lon) {
     //this should truncate location to  second decimal place. 1.1KM
-    let lat_truncated = Math.round(lat).toFixed(2);
-    let long_truncated = Math.round(long).toFixed(2);
+    let lat_truncated = parseFloat(Math.round(lat).toFixed(2));
+    let long_truncated = parseFloat(Math.round(long).toFixed(2));
 
     return {
         lat: lat_truncated,
@@ -31,6 +31,8 @@ let approximateLocation = function approximatePoint(lat, lon) {
     }
 
 }
+
+
 module.exports = {
     distanceBetweenTwoPoints
 }

@@ -1,5 +1,6 @@
 var locationHelper = require('./locationHelpers');
-// var apis = require('./../apis.js');
+//debug
+//var apis = require('./../apis.js');
 var request = require('request');
 var gMapsApiKey = process.env.GMAPS_API_KEY || apis.mapsapi;
 var googleMapsClient = require('@google/maps').createClient({
@@ -9,8 +10,28 @@ var googleMapsClient = require('@google/maps').createClient({
 //The controller also uses helper function to take actions
 //based on the distance between things and their location.
 //This function takes the GPS location and callbacks the roadName to the caller.
-function fetchRoadName(lat, lng, alt, callback) {
-    googleMapsClient.geoCode()
+function fetchLocationId(lat, lng, alt, callback) {
+    location = {
+        points: [{
+            lat: lat,
+            lng: lng
+        }]
+
+    }
+    googleMapsClient.nearestRoads(location, (error, response) => {
+        placeId = response.json.snappedPoints[0].placeId;
+        placeObject = {
+            placeid: placeId,
+            language: 'EN'
+        }
+        setTimeout(() => {
+            googleMapsClient.place(placeObject, (err, resp2) => {
+                callback(resp2.json.result['formatted_address']);
+            })
+        }, 100);
+
+        //callback();
+    });
 }
 //this function takes an array of ambulances/rescue cars and calculates the 
 //time taken from each of them to the accident in the 2nd,3rd and 4th arguments
@@ -19,3 +40,18 @@ function fetchRoadName(lat, lng, alt, callback) {
 function fetchFastestDistanceToAccident(arr, lng, lat, alt, callback) {
 
 }
+
+function runTests() {
+    fetchLocationId(31.43869620, 31.59002780, 3.0000000, (roadName) => {
+        console.log(roadName);
+    })
+    fetchLocationId(31.439186, 31.5947697, 3.0000000, (roadName) => {
+        console.log(roadName);
+    })
+
+    //far awayy
+    fetchLocationId(31.439543, 31.6017117, 1.0000000, (roadName) => {
+        console.log(roadName);
+    })
+}
+runTests();

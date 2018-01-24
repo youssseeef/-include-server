@@ -28,7 +28,7 @@ app.post('/api/', (req, res) => {
 /**
  * This endpoint is mainly responsible for posting updates to a car
  * when the car requests them.
- *
+ * The updates will include: 1- all cars nearby list 2- any accident notification
  */
 
 app.post('/api/cars/request', (req, res) => {
@@ -40,8 +40,10 @@ app.post('/api/cars/request', (req, res) => {
  */
 app.post('/api/cars/update', (req, res) => {
     console.log(req.body);
-    let reqVerified = req.body.carId && req.body.carDataType &&
-        req.body.accidentFlag && req.body.speed &&
+    let reqVerified =
+        req.body.carId &&
+        req.body.accidentFlag &&
+        req.body.speed &&
         req.body.location;
     //Should update the database with the car details.
     //if there's an accident, should execute the accident algorithm
@@ -49,11 +51,18 @@ app.post('/api/cars/update', (req, res) => {
     if (reqVerified) {
         dbController.updateCarData({
                 timestamp: algorithms.timeStampGenerator(),
-
+                speed: req.body.speed,
+                accidentFlag: req.body.accidentFlag,
+                location: location
 
             },
             req.body.carId
         )
+        if (req.body.accidentFlag != 0) {
+            //act accordingly
+            algorithms.accidentOccured();
+
+        }
     } else {
         res.sendStatus(403)
     }
