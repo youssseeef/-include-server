@@ -52,7 +52,7 @@ app.post('/api/cars/update', (req, res) => {
         //Should update the database with the car details.
         //if there's an accident, should execute the accident algorithm
         console.log(reqVerified)
-        if (1) {
+        if (1) { //fix this - not sure what went wrong probably accidentFlag = 0
             dbController.updateCarData({
                     timestamp: algorithms.timeStampGenerator(),
                     speed: req.body.speed,
