@@ -56,7 +56,7 @@ app.post('/api/cars/update', (req, res) => {
                     timestamp: algorithms.timeStampGenerator(),
                     speed: req.body.speed,
                     accidentFlag: req.body.accidentFlag,
-                    location: location
+                    location: req.body.location
 
                 },
                 req.body.carId
