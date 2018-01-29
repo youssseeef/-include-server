@@ -43,7 +43,7 @@ app.post('/api/cars/update', (req, res) => {
     console.log(req.body)
 
     try {
-        req.body = JSON.parse(req.body);
+        //req.body = JSON.parse(req.body);
         let reqVerified =
             req.body.carId &&
             req.body.accidentFlag &&
