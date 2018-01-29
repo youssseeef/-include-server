@@ -34,5 +34,6 @@ let approximateLocation = function approximatePoint(lat, lon) {
 
 
 module.exports = {
-    distanceBetweenTwoPoints
+    distanceBetweenTwoPoints,
+    approximateLocation
 }

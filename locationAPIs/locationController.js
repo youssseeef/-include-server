@@ -28,7 +28,7 @@ function fetchLocationId(lat, lng, alt, callback) {
             googleMapsClient.place(placeObject, (err, resp2) => {
                 callback(resp2.json.result['formatted_address']);
             })
-        }, 100);
+        }, 5);
 
         //callback();
     });
@@ -38,7 +38,20 @@ function fetchLocationId(lat, lng, alt, callback) {
 //and returns a single id to the caller.
 //arr should contain carid + gps coordinates for each of the cars
 function fetchFastestDistanceToAccident(arr, lng, lat, alt, callback) {
-
+    let distance = 9999999999999;
+    let closestRescueAmbulanceId = '';
+    arr.forEach(element => {
+        distance_new = locationHelper.distanceBetweenTwoPoints({
+            lon: element.location.lng,
+            lat: element.location.lat
+        }, {
+            lon: lng,
+            lat: lat
+        });
+        if (distance_new < distance) {
+            distance = distance_new;
+        }
+    });
 }
 
 function runTests() {
@@ -55,3 +68,7 @@ function runTests() {
     })
 }
 runTests();
+module.exports = {
+    fetchLocationId,
+    fetchFastestDistanceToAccident
+}

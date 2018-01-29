@@ -47,7 +47,6 @@ app.post('/api/cars/update', (req, res) => {
         req.body.location;
     //Should update the database with the car details.
     //if there's an accident, should execute the accident algorithm
-    res.sendStatus(200);
     if (reqVerified) {
         dbController.updateCarData({
                 timestamp: algorithms.timeStampGenerator(),
@@ -59,10 +58,11 @@ app.post('/api/cars/update', (req, res) => {
             req.body.carId
         )
         if (req.body.accidentFlag != 0) {
-            //act accordingly
+            //act accordingly //i will pass it here
             algorithms.accidentOccured();
 
         }
+        res.sendStatus(200);
     } else {
         res.sendStatus(403)
     }

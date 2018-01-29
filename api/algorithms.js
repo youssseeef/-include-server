@@ -1,3 +1,5 @@
+const locationHelpers = require('../locationAPIs/locationHelpers');
+const locationController = require('../locationAPIs/locationController');
 /**
  * This function generates a timestamp. This will be needed by each object to mark the 
  * update time that this object was last updated.
@@ -15,6 +17,7 @@ function timeStampGenerator() {
 function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
     //assign to an ambulance/service car according to error level.
     let location = affectedCarData['location'];
+
 
 }
 
