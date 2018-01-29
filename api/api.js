@@ -42,35 +42,36 @@ app.post('/api/cars/update', (req, res) => {
     console.log(req.body);
     try {
         req.body = JSON.parse(req.body);
+        let reqVerified =
+            req.body.carId &&
+            req.body.accidentFlag &&
+            req.body.speed &&
+            req.body.location;
+        //Should update the database with the car details.
+        //if there's an accident, should execute the accident algorithm
+        if (reqVerified) {
+            dbController.updateCarData({
+                    timestamp: algorithms.timeStampGenerator(),
+                    speed: req.body.speed,
+                    accidentFlag: req.body.accidentFlag,
+                    location: location
+
+                },
+                req.body.carId
+            )
+            if (req.body.accidentFlag != 0) {
+                //act accordingly //i will pass it here
+                algorithms.accidentOccured();
+
+            }
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(403)
+        }
     } catch (err) {
         res.send(403)
     }
-    let reqVerified =
-        req.body.carId &&
-        req.body.accidentFlag &&
-        req.body.speed &&
-        req.body.location;
-    //Should update the database with the car details.
-    //if there's an accident, should execute the accident algorithm
-    if (reqVerified) {
-        dbController.updateCarData({
-                timestamp: algorithms.timeStampGenerator(),
-                speed: req.body.speed,
-                accidentFlag: req.body.accidentFlag,
-                location: location
 
-            },
-            req.body.carId
-        )
-        if (req.body.accidentFlag != 0) {
-            //act accordingly //i will pass it here
-            algorithms.accidentOccured();
-
-        }
-        res.sendStatus(200);
-    } else {
-        res.sendStatus(403)
-    }
 });
 /**
  * This is what the rescue cars gets its assignments from - if any -
