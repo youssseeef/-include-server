@@ -69,7 +69,7 @@ app.post('/api/cars/update', (req, res) => {
             res.sendStatus(403)
         }
     } catch (err) {
-        res.send(403)
+        res.sendStatus(403)
     }
 
 });
