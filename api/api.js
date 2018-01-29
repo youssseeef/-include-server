@@ -39,7 +39,7 @@ app.post('/api/cars/request', (req, res) => {
  * This also checks when an accident happens - it does the assignment algorithm
  */
 app.post('/api/cars/update', (req, res) => {
-    console.log(req);
+    //console.log(req);
     console.log(req.body)
 
     try {
