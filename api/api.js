@@ -67,7 +67,11 @@ app.post('/api/cars/update', (req, res) => {
                 algorithms.accidentOccured();
 
             }
-            res.sendStatus(200);
+            //hacky solution - 1-endpoint to rule them all
+            res.json({
+                arrayOfNearbyCars: [],
+                arrayOfAlerts: []
+            });
         } else {
             res.sendStatus(403)
         }
