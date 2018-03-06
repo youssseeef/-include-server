@@ -6,13 +6,27 @@
  * */
 const express = require('express');
 const bodyparser = require('body-parser');
-const app = express();
+var mongoose = require('mongoose');
+var passport = require('passport');
+var config = require('../passport/config/database');
+
 const algorithms = require('./algorithms');
 const dbController = require('../database/database-controller');
-const gmaps = require('../locationAPIs/locationController');
 const dataGenerator = require('../dataGenerator/generate-data');
+const locationController = require('../locationAPIs/locationController');
+
+
+const app = express();
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+app.use(passport.initialize());
+
 //Middleware - body-parser json
 app.use(bodyparser.json())
+app.use('/api2', api);
 
 //Fordbidden access - no get requests 
 app.get('/**', (req, res) => {
@@ -29,16 +43,37 @@ app.post('/api/', (req, res) => {
  * This endpoint is mainly responsible for posting updates to a car
  * when the car requests them.
  * The updates will include: 1- all cars nearby list 2- any accident notification
+ * Both should be on the same road. This will use the car's current road.
  */
 
 app.post('/api/cars/request', (req, res) => {
-    res.sendStatus(200);
+    const TIME_DIFFERENCE = 1000 * 10; //10 seconds
+    let carId = req.body.carId;
+    dbController.getCarData(carId, (returnedData) => {
+        let longitude = returnedData.location.longitude
+        let latitude = returnedData.location.latitude;
+        let altitude = returnedData.location.altitude;
+        locationController.fetchLocationId(latitude, longitude, altitude, (roadName) => {
+            dbController.getCarsOnRoad(roadName, algorithms.timeStampGenerator(), TIME_DIFFERENCE, (arrayOfCarsOnRoad, accidentsOnRoad) => {
+                res.json({
+                    arrayOfCarsOnRoad,
+                    accidentsOnRoad
+                })
+            })
+
+        })
+
+    })
+
+
+    //res.sendStatus(200);
+
 });
 /**
  * This endpoint is mainly responsible for receiving updates from a car.
  * This also checks when an accident happens - it does the assignment algorithm
  */
-app.post('/api/cars/update', (req, res) => {
+app.post('/api/cars/update', passport.authenticate('basic', (req, res) => {
     //console.log(req);
     console.log(req.body)
 
@@ -46,32 +81,29 @@ app.post('/api/cars/update', (req, res) => {
         //req.body = JSON.parse(req.body);
         let reqVerified =
             req.body.carId &&
-            req.body.accidentFlag &&
+            req.body.accidentStatus &&
             req.body.speed &&
             req.body.location;
         //Should update the database with the car details.
         //if there's an accident, should execute the accident algorithm
         console.log(reqVerified)
-        if (1) { //fix this - not sure what went wrong probably accidentFlag = 0
+        if (1) { //fix this - not sure what went wrong probably accidentStatus = 0
             dbController.updateCarData({
                     timestamp: algorithms.timeStampGenerator(),
                     speed: req.body.speed,
-                    accidentFlag: req.body.accidentFlag,
+                    accidentStatus: req.body.accidentStatus,
                     location: req.body.location
 
                 },
                 req.body.carId
             )
-            if (req.body.accidentFlag != 0) {
+            if (req.body.accidentStatus != 0) {
                 //act accordingly //i will pass it here
                 algorithms.accidentOccured();
 
             }
             //hacky solution - 1-endpoint to rule them all
-            res.json({
-                arrayOfNearbyCars: [],
-                arrayOfAlerts: []
-            });
+            res.sendStatus(200)
         } else {
             res.sendStatus(403)
         }
@@ -79,11 +111,13 @@ app.post('/api/cars/update', (req, res) => {
         res.sendStatus(403)
     }
 
-});
+}));
 /**
  * This is what the rescue cars gets its assignments from - if any -
  */
-app.post('/api/sos/rescue', (req, res) => {
+app.post('/api/sos/rescueAssignments', (req, res) => {
+    let carId = req.body.carId;
+
     res.sendStatus(200);
 });
 /**

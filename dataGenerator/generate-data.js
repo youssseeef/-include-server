@@ -9,33 +9,42 @@ const dbController = require('../database/database-controller');
 // run with caution
 let firstCarData = {
     id: 'cqowieucop98034ckle65689cwer2132we',
-    timestamp: '0',
-    accident_status: '0',
-    assignedRescue: 'none',
-    assignedAmbulance: 'none'
+    data: {
+        timestamp: 0,
+        accident_status: 0,
+        assignedRescue: 'none',
+        assignedAmbulance: 'none'
+    }
 }
 
 let secondCarData = {
     id: 'cqko8cq9pwe8jqcweikcqwdqweckkzfsdf',
-    timestamp: '0',
-    accident_status: '0',
-    assignedRescue: 'none',
-    assignedAmbulance: 'none'
+    data: {
+        timestamp: 0,
+        accident_status: 0,
+        assignedRescue: 'none',
+        assignedAmbulance: 'none'
+    }
+
 }
 
 let thirdCarData = {
     id: 'cwperocweromcw398ew39cwpeu9rucwere',
-    timestamp: '0',
-    accident_status: '0',
-    assignedRescue: 'none',
-    assignedAmbulance: 'none'
+    data: {
+        timestamp: '0',
+        accident_status: '0',
+        assignedRescue: 'none',
+        assignedAmbulance: 'none'
+    }
 }
 let fourthCarData = {
     id: 'cwejqmowieoqciwuoqeweuqoe98o92qouc',
-    timestamp: '0',
-    accident_status: '0',
-    assignedRescue: 'none',
-    assignedAmbulance: 'none'
+    data: {
+        timestamp: '0',
+        accident_status: '0',
+        assignedRescue: 'none',
+        assignedAmbulance: 'none'
+    }
 }
 
 
@@ -74,10 +83,10 @@ function clearAndReset() {
 }
 const initializeDatabase = (() => {
     //initializing cars
-    dbController.updateCarData(firstCarData, firstCarData.id);
-    dbController.updateCarData(secondCarData, secondCarData.id);
-    dbController.updateCarData(thirdCarData, thirdCarData.id);
-    dbController.updateCarData(fourthCarData, fourthCarData.id);
+    dbController.updateCarData(firstCarData.data, firstCarData.id);
+    dbController.updateCarData(secondCarData.data, secondCarData.id);
+    dbController.updateCarData(thirdCarData.data, thirdCarData.id);
+    dbController.updateCarData(fourthCarData.data, fourthCarData.id);
     //initializing ambulances and rescues
     dbController.updateRescueData(rescueData, rescueData.id);
     dbController.updateRescueData(rescueData2, rescueData2.id);
