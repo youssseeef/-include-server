@@ -9,7 +9,7 @@ const bodyparser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var config = require('../passport/config/database');
-
+let api = require('../passport/routes/api');
 const algorithms = require('./algorithms');
 const dbController = require('../database/database-controller');
 const dataGenerator = require('../dataGenerator/generate-data');
