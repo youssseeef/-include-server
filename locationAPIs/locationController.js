@@ -67,7 +67,7 @@ function runTests() {
         console.log(roadName);
     })
 }
-runTests();
+//runTests();
 module.exports = {
     fetchLocationId,
     fetchFastestDistanceToAccident
