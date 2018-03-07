@@ -75,7 +75,7 @@ app.post('/api/cars/request', (req, res) => {
  * This endpoint is mainly responsible for receiving updates from a car.
  * This also checks when an accident happens - it does the assignment algorithm
  */
-app.post('/api/cars/update', passport.authenticate('jwt'), (req, res) => {
+app.post('/api/cars/update', passport.authenticate('jwt', { session: false }), (req, res) => {
     //console.log(req);
     console.log(req.body)
 
