@@ -26,13 +26,13 @@ app.use(passport.initialize());
 
 //Middleware - body-parser json
 app.use(bodyparser.json())
-app.use('/api2*', api);
 
 //Fordbidden access - no get requests 
 app.get('/**', (req, res) => {
     res.sendStatus(403);
 });
 
+app.use('/api2/*', api);
 
 //Fordbidden access - no post to this endpoint requests 
 app.post('/api/', (req, res) => {
