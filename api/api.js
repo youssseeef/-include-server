@@ -14,6 +14,7 @@ const algorithms = require('./algorithms');
 const dbController = require('../database/database-controller');
 const dataGenerator = require('../dataGenerator/generate-data');
 const locationController = require('../locationAPIs/locationController');
+var router = express.Router();
 
 
 const app = express();
@@ -35,7 +36,7 @@ app.get('/**', (req, res) => {
 app.use('/api2/*', api);
 
 //Fordbidden access - no post to this endpoint requests 
-app.post('/api/', (req, res) => {
+router.post('/api/', (req, res) => {
     res.sendStatus(403);
 });
 
@@ -46,7 +47,7 @@ app.post('/api/', (req, res) => {
  * Both should be on the same road. This will use the car's current road.
  */
 
-app.post('/api/cars/request', (req, res) => {
+router.post('/api/cars/request', (req, res) => {
     const TIME_DIFFERENCE = 1000 * 10; //10 seconds
     let carId = req.body.carId;
     dbController.getCarData(carId, (returnedData) => {
@@ -73,7 +74,7 @@ app.post('/api/cars/request', (req, res) => {
  * This endpoint is mainly responsible for receiving updates from a car.
  * This also checks when an accident happens - it does the assignment algorithm
  */
-app.post('/api/cars/update', passport.authenticate('jwt'), (req, res) => {
+router.post('/api/cars/update', passport.authenticate('jwt'), (req, res) => {
     //console.log(req);
     console.log(req.body)
 
@@ -115,7 +116,7 @@ app.post('/api/cars/update', passport.authenticate('jwt'), (req, res) => {
 /**
  * This is what the rescue cars gets its assignments from - if any -
  */
-app.post('/api/sos/rescueAssignments', (req, res) => {
+router.post('/api/sos/rescueAssignments', (req, res) => {
     let carId = req.body.carId;
 
     res.sendStatus(200);
@@ -123,7 +124,7 @@ app.post('/api/sos/rescueAssignments', (req, res) => {
 /**
  * This is what the ambulance gets its assignments from - if any -
  */
-app.post('/api/sos/ambulance', (req, res) => {
+router.post('/api/sos/ambulance', (req, res) => {
     res.sendStatus(200);
 });
 /**
@@ -131,7 +132,7 @@ app.post('/api/sos/ambulance', (req, res) => {
  * and restore it to its original state.
  * This should be deleted after testing in the deployment version.
  */
-app.post('/api/reset', (req, res) => {
+router.post('/api/reset', (req, res) => {
     dataGenerator.clearAndReset();
     res.sendStatus(200);
 })
