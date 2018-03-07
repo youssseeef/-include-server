@@ -7,10 +7,11 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 var mongoose = require('mongoose');
-mongoose.connect(config.database);
 var passport = require('passport');
 var config = require('../passport/config/database');
 let api = require('../passport/routes/api');
+mongoose.connect(config.database);
+
 const algorithms = require('./algorithms');
 const dbController = require('../database/database-controller');
 const dataGenerator = require('../dataGenerator/generate-data');
