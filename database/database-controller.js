@@ -25,7 +25,7 @@ function updateCarData(newData, carId) {
  * @param {*} callback 
  */
 function getCarData(carId, callback) {
-    client.hget('cars', carId, function(returnedData) {
+    client.hget('cars', carId, function(err, returnedData) {
         console.log(returnedData)
         try {
             let data = JSON.parse(returnedData);
