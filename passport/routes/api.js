@@ -55,6 +55,20 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
         success: 'true'
     })
 });
+router.post('postUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
+    //this will
+    /**
+     * 1- Validate the user asscociated with the token.
+     * 2- Validate the data types.
+     * 3- post the data to mongodb to update the user's data.
+     */
+})
+router.post('getUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
+    //This will get the data associated with the current user associated with JWT
+    //This should be using the user's unique id.
+    //this will get all the data for the app to display when the user opens the view.
+    //this will check if there's no data, we'll send some kind of empty response
+})
 getToken = function(headers) {
     if (headers && headers.authorization) {
         var parted = headers.authorization.split(' ');
