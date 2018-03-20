@@ -56,6 +56,7 @@ app.post('/api/cars/request', (req, res) => {
         let latitude = returnedData.location.latitude;
         let altitude = returnedData.location.altitude;
         locationController.fetchLocationId(latitude, longitude, altitude, (roadName) => {
+            log(roadName)
             dbController.getCarsOnRoad(roadName, algorithms.timeStampGenerator(), TIME_DIFFERENCE, (arrayOfCarsOnRoad, accidentsOnRoad) => {
                 res.json({
                     arrayOfCarsOnRoad,
