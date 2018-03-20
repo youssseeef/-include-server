@@ -68,7 +68,7 @@ app.post('/api/cars/request', (req, res) => {
     })
 
 
-    //res.sendStatus(200);
+    res.sendStatus(200);
 
 });
 /**
