@@ -30,9 +30,9 @@ function getCarData(carId, callback) {
             let data = JSON.parse(returnedData);
             callback(data);
         } catch (err) {
-            return {
+            console.log({
                 'error': 'Can not access car data from the database'
-            }
+            })
         }
     })
 }
