@@ -27,8 +27,8 @@ function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
 
         databaseController.getAllAmbulances((ambulances) => {
             let ambulanceArray = [];
-            ambulances.forEach(ambulance => {
-                ambulanceArray.push(ambulance);
+            Object.keys(ambulances).forEach(ambulance => {
+                ambulanceArray.push(ambulances[ambulance]);
             });
             console.log(ambulanceArray);
         });
