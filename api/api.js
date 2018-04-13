@@ -104,7 +104,13 @@ app.post('/api/cars/update', (req, res) => {
             )
             if (req.body.accidentStatus != 0) {
                 //act accordingly //i will pass it here
-                algorithms.accidentOccured();
+                //
+                algorithms.accidentOccured(req.body.carId, {
+                    timestamp: algorithms.timeStampGenerator(),
+                    speed: req.body.speed,
+                    accidentStatus: req.body.accidentStatus,
+                    location: req.body.location
+                }, "random road for now");
 
             }
             //hacky solution - 1-endpoint to rule them all

@@ -1,5 +1,6 @@
 const locationHelpers = require('../locationAPIs/locationHelpers');
 const locationController = require('../locationAPIs/locationController');
+const databaseController = require('../database/database-controller');
 /**
  * This function generates a timestamp. This will be needed by each object to mark the 
  * update time that this object was last updated.
@@ -15,8 +16,17 @@ function timeStampGenerator() {
  * @param {*The exact road the car's walking on when the accident occured. } affectedCarRoad 
  */
 function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
-    //assign to an ambulance/service car according to error level.
     let location = affectedCarData['location'];
+    let accidentStatus = affectedCarData['accidentStatus'];
+    let timestamp = affectedCarData['timestamp'];
+    databaseController.getAllAmbulances((ambulances) => {
+        console.log(ambulances);
+    });
+    //assign to an ambulance/service car according to error level.
+    //0- check if car is already assigned
+    //1- get all ambulances
+    //2- get the nearest ambulance
+    //3- add a database entry for assignment
 
 
 }

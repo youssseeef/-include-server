@@ -72,6 +72,24 @@ function getAmbulanceData(carId, callback) {
     })
 }
 
+function getAllAmbulances(callback) {
+    client.hgetall('ambulance', (err, response) => {
+        callback(response);
+    })
+}
+
+function setCarAssignedToAmbulance(callback) {
+
+}
+
+function setAmbulanceRequest(ambulanceId) {
+
+}
+
+function clearAmbulanceRequest(ambulanceId) {
+
+}
+
 function setApproxLocation(carId, long, lat, newData) {
     let longitude = parseFloat(parseFloat(String(long)).toFixed(2));
     let latitude = parseFloat(parseFloat(String(lat)).toFixed(2));
@@ -141,5 +159,6 @@ module.exports = {
     setApproxLocation,
     getCarIdsApproxLocation,
     getCarsOnRoad,
-    addCarToRoad
+    addCarToRoad,
+    getAllAmbulances
 }
