@@ -71,29 +71,31 @@ function getAmbulanceData(ambulanceId, callback) {
         }
     })
 }
-
+//Since the number of ambulances will be probably less than 1000 in a city,
+//That's not quite the big operation so let's do it!
 function getAllAmbulances(callback) {
     client.hgetall('ambulance', (err, response) => {
         callback(response);
     })
 }
-
-function setCarAssignedToAmbulance(carId, callback) {
-
-}
 //sets the car assigned to the ambulance
-function setCarAssignedToAmbulance(carId, ambulanceId, callback) {
+function setCarAssignedToAmbulance(ambulanceId, carId, callback) {
+    getAmbulanceData(ambulanceId, (data) => {
+        data['carAssigned'] = {
+            carId
+        };
+    })
+}
+
+//sets the ambulance assigned to the car
+function setAmbulanceAssignedToCar(carId, ambulanceId, callback) {
     getCarData(carId, (data) => {
-        data['ambulanceAssignment'] = {
+        data['ambulanceAssigned'] = {
             ambulanceId
         };
     })
 }
-//sets the ambulance assigned to the car
-function setAmbulanceAssignedToCar(carId, ambulanceId, callback) {
-    getAmbulanceData()
-}
-
+//when the ambulance is ready to take the next request
 function clearAmbulanceRequest(ambulanceId) {
 
 }

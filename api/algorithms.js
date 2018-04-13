@@ -19,12 +19,19 @@ function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
     let location = affectedCarData['location'];
     let accidentStatus = affectedCarData['accidentStatus'];
     let timestamp = affectedCarData['timestamp'];
-    databaseController.checkAssigned
-    databaseController.getAllAmbulances((ambulances) => {
-        ambulances.forEach(ambulance => {
-            console.log(ambulance)
+    let ambulanceAssigned = affectedCarData['ambulanceAssigned'];
+    //Check if there is no ambulance assignment to act upon it.
+    //if there is one, that means the car has been assigned an ambulance.
+    if (ambulanceAssigned != undefined) {
+        databaseController.getAllAmbulances((ambulances) => {
+            let ambulanceArray = [];
+            ambulances.forEach(ambulance => {
+                ambulanceArray.push(ambulance);
+            });
+            console.log(ambulanceArray);
         });
-    });
+    }
+
     //assign to an ambulance/service car according to error level.
     //0- check if car is already assigned
     //1- get all ambulances
