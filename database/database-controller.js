@@ -59,8 +59,8 @@ function updateAmbulanceData(newData, carId) {
     client.hset('ambulance', carId + '', JSON.stringify(newData));
 }
 
-function getAmbulanceData(carId, callback) {
-    client.hget('ambulance', carId, function(returnedData) {
+function getAmbulanceData(ambulanceId, callback) {
+    client.hget('ambulance', ambulanceId, function(returnedData) {
         try {
             let data = JSON.parse(returnedData);
             callback(data);
@@ -78,15 +78,27 @@ function getAllAmbulances(callback) {
     })
 }
 
-function setCarAssignedToAmbulance(callback) {
+function setCarAssignedToAmbulance(carId, callback) {
 
 }
-
-function setAmbulanceRequest(ambulanceId) {
-
+//sets the car assigned to the ambulance
+function setCarAssignedToAmbulance(carId, ambulanceId, callback) {
+    getCarData(carId, (data) => {
+        data['ambulanceAssignment'] = {
+            ambulanceId
+        };
+    })
+}
+//sets the ambulance assigned to the car
+function setAmbulanceAssignedToCar(carId, ambulanceId, callback) {
+    getAmbulanceData()
 }
 
 function clearAmbulanceRequest(ambulanceId) {
+
+}
+//Upon fixing the car from the damage due to the accident
+function clearCarAssignment(carId) {
 
 }
 

@@ -19,8 +19,11 @@ function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
     let location = affectedCarData['location'];
     let accidentStatus = affectedCarData['accidentStatus'];
     let timestamp = affectedCarData['timestamp'];
+    databaseController.checkAssigned
     databaseController.getAllAmbulances((ambulances) => {
-        console.log(ambulances);
+        ambulances.forEach(ambulance => {
+            console.log(ambulance)
+        });
     });
     //assign to an ambulance/service car according to error level.
     //0- check if car is already assigned
