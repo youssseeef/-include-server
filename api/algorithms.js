@@ -23,6 +23,8 @@ function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
     //Check if there is no ambulance assignment to act upon it.
     //if there is one, that means the car has been assigned an ambulance.
     if (ambulanceAssigned != undefined) {
+        console.log("GOT HERE!");
+
         databaseController.getAllAmbulances((ambulances) => {
             let ambulanceArray = [];
             ambulances.forEach(ambulance => {
