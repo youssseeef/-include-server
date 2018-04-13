@@ -126,7 +126,7 @@ app.post('/api/cars/update', (req, res) => {
 /**
  * This is what the rescue cars gets its assignments from - if any -
  */
-app.post('/api/sos/rescueAssignments', (req, res) => {
+app.post('/api/sos/rescue', (req, res) => {
     let carId = req.body.carId;
 
     res.sendStatus(200);
@@ -135,6 +135,14 @@ app.post('/api/sos/rescueAssignments', (req, res) => {
  * This is what the ambulance gets its assignments from - if any -
  */
 app.post('/api/sos/ambulance', (req, res) => {
+    console.log(req.body)
+    res.sendStatus(200);
+});
+/**
+ * This is what the ambulance updates its location
+ */
+app.post('/api/sos/updateAmbulance', (req, res) => {
+    console.log(req.body)
     res.sendStatus(200);
 });
 /**

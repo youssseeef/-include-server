@@ -30,7 +30,9 @@ function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
             Object.keys(ambulances).forEach(ambulance => {
                 ambulanceArray.push(ambulances[ambulance]);
             });
-            console.log(ambulanceArray);
+            ambulanceArray.forEach(element => {
+                console.log(element)
+            });
         });
     }
 
