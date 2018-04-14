@@ -152,7 +152,7 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
                 longitude: parseFloat(parseFloat(req.body.longitude).toFixed(5)),
                 latitude: parseFloat(parseFloat(req.body.latitude).toFixed(5))
             }
-        }, req.body.ambulanceId, () => {
+        }, req.body.ambulanceId, (errrrr) => {
             dbController.getAmbulanceData(req.body.ambulanceId, (ambData) => {
                 if (ambData['carAssigned'] != undefined) {
                     res.sendStatus(200).json({
