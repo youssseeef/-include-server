@@ -44,7 +44,7 @@ function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
                     //in a final product.
                     console.log("I AM GROOT")
                     databaseController.setAmbulanceAssignedToCar(affectedCarId, element.id);
-                    databaseController.setCarAssignedToAmbulance(element.id, affectedCarId);
+                    databaseController.setCarAssignedToAmbulance(element.id + "", affectedCarId);
                 }
             });
         });
