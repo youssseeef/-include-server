@@ -93,15 +93,14 @@ app.post('/api/cars/update', (req, res) => {
         //if there's an accident, should execute the accident algorithm
         console.log(reqVerified)
         if (1) { //fix this - not sure what went wrong probably accidentStatus = 0
-            dbController.updateCarData({
-                    timestamp: algorithms.timeStampGenerator(),
-                    speed: req.body.speed,
-                    accidentStatus: req.body.accidentStatus,
-                    location: req.body.location
+            dbController.getCarData(req.body.carId, (err, oldCarData) => {
+                oldCarData['timestamp'] = algorithms.timeStampGenerator();
+                oldCarData['speed'] = req.body.speed;
+                oldCarData['accidentStatus'] = req.body.accidentStatus;
+                oldCarData['location'] = req.body.location;
+                dbController.updateCarData(oldCarData, req.body.carId)
+            });
 
-                },
-                req.body.carId
-            )
             if (req.body.accidentStatus != 0) {
                 //act accordingly //i will pass it here
                 //
