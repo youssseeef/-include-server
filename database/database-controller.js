@@ -66,7 +66,7 @@ function getAmbulanceData(ambulanceId, callback) {
             callback(data);
         } catch (err) {
             return {
-                'error': 'Can not access car data from the database'
+                'error': 'Can not access ambulance data from the database'
             }
         }
     })
@@ -81,6 +81,7 @@ function getAllAmbulances(callback) {
 //sets the car assigned to the ambulance
 function setCarAssignedToAmbulance(ambulanceId, carId) {
     getAmbulanceData(ambulanceId, (data) => {
+        console.log(data);
         data['carAssigned'] = {
             carId
         };
