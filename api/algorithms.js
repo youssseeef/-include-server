@@ -15,7 +15,7 @@ function timeStampGenerator() {
  * @param {*The location(GPS) of the car affected by the accident. } affectedCarLocation 
  * @param {*The exact road the car's walking on when the accident occured. } affectedCarRoad 
  */
-function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
+function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
 
     databaseController.getCarData(affectedCarId, (affectedCarData) => {
         let location = affectedCarData['location'];
