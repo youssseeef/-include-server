@@ -170,6 +170,11 @@ function getCarIdsApproxLocation(long, lat, callback) {
         callback(JSON.parse(response));
     })
 }
+
+function resetTheDemo() {
+    client.hset('cars', 'cqowieucop98034ckle65689cwer2132we', `{"timestamp":1523680912943,"speed":50,"accidentStatus":1,"location":{"longitude":31.20388,"latitude":29.87504}}`);
+    client.hset('ambulance', 'c12qeqwceqwecvqwevqweqwioeuq8weuq3', `{"location":{"longitude":29.89186,"latitude":31.16739}}`)
+}
 module.exports = {
     updateCarData,
     getCarData,
@@ -185,6 +190,7 @@ module.exports = {
     setCarAssignedToAmbulance,
     setAmbulanceAssignedToCar,
     clearCarAssignment,
-    clearAmbulanceRequest
+    clearAmbulanceRequest,
+    resetTheDemo,
 
 }

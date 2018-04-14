@@ -181,7 +181,8 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
  * This should be deleted after testing in the deployment version.
  */
 app.post('/api/reset', (req, res) => {
-    dataGenerator.clearAndReset();
+    //dataGenerator.clearAndReset();
+    dbController.resetTheDemo();
     res.sendStatus(200);
 })
 module.exports = app;
