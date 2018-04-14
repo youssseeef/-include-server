@@ -84,7 +84,7 @@ function setCarAssignedToAmbulance(ambulanceId, carId) {
         data['carAssigned'] = {
             carId
         };
-        updateAmbulanceData(ambulanceId, data);
+        updateAmbulanceData(data, ambulanceId);
     })
 }
 
