@@ -167,9 +167,13 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
                     console.log(ambData)
                     if (ambData['carAssigned'] != undefined) {
                         console.log("RESPONSE SENT!")
-                        res.json({
-                            carAssigned: ambData['carAssigned']
-                        });
+                        dbController.getCarData(ambData['carAssigned']['carId'], (carData) => {
+                            res.json({
+                                carAssigned: ambData['carAssigned'],
+                                carLocation: carData['location']
+                            });
+                        })
+
                     } else {
                         res.json({
                             none: none
