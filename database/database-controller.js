@@ -55,8 +55,8 @@ function getRescueData(carId, callback) {
     })
 }
 
-function updateAmbulanceData(newData, carId) {
-    client.hset('ambulance', carId + '', JSON.stringify(newData));
+function updateAmbulanceData(newData, ambulanceId) {
+    client.hset('ambulance', ambulanceId + '', JSON.stringify(newData));
 }
 
 function getAmbulanceData(ambulanceId, callback) {
