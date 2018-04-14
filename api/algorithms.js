@@ -24,7 +24,7 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
         let ambulanceAssigned = affectedCarData['ambulanceAssigned'];
         //Check if there is no ambulance assignment to act upon it.
         //if there is one, that means the car has been assigned an ambulance.
-        console.log("12312312" + affectedCarData);
+        console.log("12312312" + affectedCarData['timestamp']);
         if (ambulanceAssigned === undefined) {
             console.log("GOT HERE!");
 
