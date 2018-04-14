@@ -183,7 +183,7 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
     } else {
         res.sendStatus(403);
     }
-    res.sendStatus(200);
+    //res.sendStatus(200);
 });
 
 module.exports = app;
