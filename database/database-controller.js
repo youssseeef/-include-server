@@ -94,8 +94,8 @@ function setAmbulanceAssignedToCar(carId, ambulanceId) {
         data['ambulanceAssigned'] = {
             ambulanceId
         };
+        updateCarData(data, carId);
     })
-    updateCarData(data, carId);
 }
 //when the ambulance is ready to take the next request
 function clearAmbulanceRequest(ambulanceId) {
