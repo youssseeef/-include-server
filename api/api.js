@@ -142,12 +142,16 @@ app.post('/api/sos/ambulance', (req, res) => {
  * This is what the ambulance updates its location
  */
 app.post('/api/sos/updateAmbulance', (req, res) => {
-    let reqVerified = req && req.body && req.body.longitude && req.body.latitude && req.body.ambulanceId;
+    let reqVerified = req != undefined &&
+        req.body != undefined &&
+        req.body.longitude != undefined &&
+        req.body.latitude != undefined &&
+        req.body.ambulanceId != undefined;
     if (reqVerified) {
         dbController.updateAmbulanceData({
             location: {
-                longitude: req.body.longitude,
-                latitude: req.body.latitude
+                longitude: parseFloat(parseFloat(req.body.longitude).toFixed(5)),
+                latitude: parseFloat(parseFloat(req.body.latitude).toFixed(5))
             }
         }, req.body.ambulanceId);
     } else {
