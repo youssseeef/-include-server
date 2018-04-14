@@ -35,10 +35,10 @@ function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
             });
             ambulanceArray.forEach((element, index) => {
                 console.log(index);
-                console.log(element.value);
+                console.log(element.value['location']);
                 console.log(element.value['carAssigned'] == null);
-                console.log(element.value['location'] != null);
-                if ((element.value['location'] != null) == true && (element.value['carAssigned'] == null) == true) {
+                console.log(element.value['location'] !== null);
+                if ((element.value['location'] !== null) == true && (element.value['carAssigned'] == null) == true) {
                     //shouldn't be there but that's just for the MVP demo
                     //this is the only ambulance in the system now! This should definitely be changed
                     //in a final product.
