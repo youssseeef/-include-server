@@ -147,25 +147,27 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
         req.body.latitude != undefined &&
         req.body.ambulanceId != undefined;
     if (reqVerified) {
-        dbController.updateAmbulanceData({
-            location: {
+        dbController.getAmbulanceData(req.body.ambulanceId, (oldAmbData) => {
+            let newAmbData = oldAmbData;
+            newAmbData['location'] = {
                 longitude: parseFloat(parseFloat(req.body.longitude).toFixed(5)),
                 latitude: parseFloat(parseFloat(req.body.latitude).toFixed(5))
-            }
-        }, req.body.ambulanceId, (errrrr) => {
-            dbController.getAmbulanceData(req.body.ambulanceId, (ambData) => {
-                if (ambData['carAssigned'] != undefined) {
-                    res.sendStatus(200).json({
-                        carAssigned: ambData['carAssigned']
-                    });
-                } else {
-                    res.sendStatus(200).json({
-                        none: none
-                    });
+            };
+            dbController.updateAmbulanceData(newAmbData, req.body.ambulanceId, (errrrr) => {
+                dbController.getAmbulanceData(req.body.ambulanceId, (ambData) => {
+                    if (ambData['carAssigned'] != undefined) {
+                        res.sendStatus(200).json({
+                            carAssigned: ambData['carAssigned']
+                        });
+                    } else {
+                        res.sendStatus(200).json({
+                            none: none
+                        });
 
-                }
-            })
-        });
+                    }
+                })
+            });
+        })
 
 
     } else {
