@@ -41,6 +41,7 @@ function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
                     //shouldn't be there but that's just for the MVP demo
                     //this is the only ambulance in the system now! This should definitely be changed
                     //in a final product.
+                    console.log("I AM GROOT")
                     databaseController.setAmbulanceAssignedToCar(affectedCarId, element.id);
                     databaseController.setCarAssignedToAmbulance(element.id, affectedCarId);
                 }
