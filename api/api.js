@@ -180,7 +180,7 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
  * and restore it to its original state.
  * This should be deleted after testing in the deployment version.
  */
-app.post('/api/reset', (req, res) => {
+app.get('/api/reset', (req, res) => {
     //dataGenerator.clearAndReset();
     dbController.resetTheDemo();
     res.sendStatus(200);
