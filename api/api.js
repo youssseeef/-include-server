@@ -154,6 +154,19 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
                 latitude: parseFloat(parseFloat(req.body.latitude).toFixed(5))
             }
         }, req.body.ambulanceId);
+        dbController.getAmbulanceData(req.body.ambulanceId, (ambData) => {
+            if (ambData['carAssigned'] != undefined) {
+                res.sendStatus(200).json({
+                    carAssigned: ambData['carAssigned']
+                });
+            } else {
+                res.sendStatus(200).json({
+                    none: none
+                });
+
+            }
+        })
+
     } else {
         res.sendStatus(403);
     }

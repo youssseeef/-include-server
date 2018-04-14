@@ -28,10 +28,19 @@ function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
         databaseController.getAllAmbulances((ambulances) => {
             let ambulanceArray = [];
             Object.keys(ambulances).forEach(ambulance => {
-                ambulanceArray.push(ambulances[ambulance]);
+                ambulanceArray.push({
+                    id: ambulance,
+                    value: ambulances[ambulance]
+                });
             });
-            ambulanceArray.forEach(element => {
-                console.log(element)
+            ambulanceArray.forEach((element, index) => {
+                if (element.value['location'] != undefined && element.value['carAssigned'] == undefined) {
+                    //shouldn't be there but that's just for the MVP demo
+                    //this is the only ambulance in the system now! This should definitely be changed
+                    //in a final product.
+                    databaseController.setAmbulanceAssignedToCar(affectedCarId, element.id);
+                    databaseController.setCarAssignedToAmbulance(element.id, affectedCarId);
+                }
             });
         });
     }

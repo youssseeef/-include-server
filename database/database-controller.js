@@ -79,21 +79,23 @@ function getAllAmbulances(callback) {
     })
 }
 //sets the car assigned to the ambulance
-function setCarAssignedToAmbulance(ambulanceId, carId, callback) {
+function setCarAssignedToAmbulance(ambulanceId, carId) {
     getAmbulanceData(ambulanceId, (data) => {
         data['carAssigned'] = {
             carId
         };
+        updateAmbulanceData(ambulanceId, data);
     })
 }
 
 //sets the ambulance assigned to the car
-function setAmbulanceAssignedToCar(carId, ambulanceId, callback) {
+function setAmbulanceAssignedToCar(carId, ambulanceId) {
     getCarData(carId, (data) => {
         data['ambulanceAssigned'] = {
             ambulanceId
         };
     })
+    updateCarData(data, carId);
 }
 //when the ambulance is ready to take the next request
 function clearAmbulanceRequest(ambulanceId) {
@@ -174,5 +176,10 @@ module.exports = {
     getCarIdsApproxLocation,
     getCarsOnRoad,
     addCarToRoad,
-    getAllAmbulances
+    getAllAmbulances,
+    setCarAssignedToAmbulance,
+    setAmbulanceAssignedToCar,
+    clearCarAssignment,
+    clearAmbulanceRequest
+
 }
