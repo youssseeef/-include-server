@@ -34,6 +34,8 @@ function accidentOccured(affectedCarId, affectedCarData, affectedCarRoad) {
                 });
             });
             ambulanceArray.forEach((element, index) => {
+                console.log(index);
+
                 console.log(element.value['carAssigned'] + "aaaaaaaa" + element.value['location'] != null);
                 if (element.value['location'] != null && element.value['carAssigned'] == null) {
                     //shouldn't be there but that's just for the MVP demo
