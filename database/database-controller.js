@@ -43,7 +43,7 @@ function updateRescueData(newData, carId) {
 }
 
 function getRescueData(carId, callback) {
-    client.hget('rescue', carId + '', function(returnedData) {
+    client.hget('rescue', carId + '', function(err, returnedData) {
         try {
             let data = JSON.parse(returnedData);
             callback(data);
@@ -60,7 +60,7 @@ function updateAmbulanceData(newData, ambulanceId) {
 }
 
 function getAmbulanceData(ambulanceId, callback) {
-    client.hget('ambulance', ambulanceId + '', function(returnedData) {
+    client.hget('ambulance', ambulanceId + '', function(err, returnedData) {
         try {
             let data = JSON.parse(returnedData);
             callback(data);
