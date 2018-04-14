@@ -29,7 +29,16 @@ app.use(passport.initialize());
 //Middleware - body-parser json
 app.use(bodyparser.json())
 app.use('/api2', api);
-
+/**
+ * This API is responsible to clear the database
+ * and restore it to its original state.
+ * This should be deleted after testing in the deployment version.
+ */
+app.get('/api/reset', (req, res) => {
+    //dataGenerator.clearAndReset();
+    dbController.resetTheDemo();
+    res.sendStatus(200);
+});
 //Fordbidden access - no get requests 
 app.get('/**', (req, res) => {
     res.sendStatus(403);
@@ -175,14 +184,5 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
     }
     res.sendStatus(200);
 });
-/**
- * This API is responsible to clear the database
- * and restore it to its original state.
- * This should be deleted after testing in the deployment version.
- */
-app.get('/api/reset', (req, res) => {
-    //dataGenerator.clearAndReset();
-    dbController.resetTheDemo();
-    res.sendStatus(200);
-})
+
 module.exports = app;
