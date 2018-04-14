@@ -165,7 +165,7 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
             dbController.updateAmbulanceData(newAmbData, req.body.ambulanceId, (errrrr) => {
                 dbController.getAmbulanceData(req.body.ambulanceId, (ambData) => {
                     console.log(ambData)
-                    if (ambData['carAssigned'] !== undefined) {
+                    if (ambData['carAssigned'] != undefined) {
                         console.log("RESPONSE SENT!")
                         res.json({
                             carAssigned: ambData['carAssigned']
