@@ -58,6 +58,7 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
         try {
             decoded = jwt.verify(authorization, config.secret);
         } catch (e) {
+            console.log(e);
             return res.status(401).send('unauthorized');
         }
         var userId = decoded.id;
