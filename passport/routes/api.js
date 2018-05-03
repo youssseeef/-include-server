@@ -57,11 +57,11 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
         let decoded;
         try {
             decoded = jwt.verify(authorization, config.secret);
+            decoded = JSON.parse(decoded);
         } catch (e) {
             console.log(e);
             return res.status(401).send('unauthorized');
         }
-        console.log(decoded)
         var userId = decoded.id;
         User.findOne({ _id: userId }).then((user) => {
             console.log(user);
