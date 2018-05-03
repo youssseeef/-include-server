@@ -51,9 +51,9 @@ router.post('/signin', function(req, res) {
     });
 });
 router.post('/validateToken', passport.authenticate('jwt', { session: false }), (req, res) => {
-    console.log(req.get['Authorization']);
+    console.log(req.headers);
     res.status(200).json({
-        success: 'true'
+        success: 'OK',
     })
 });
 router.post('postUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
