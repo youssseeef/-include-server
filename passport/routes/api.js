@@ -69,7 +69,7 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
             })
         })
     }
-    return res.send(500);
+    return res.status(500);
 
 });
 router.post('postUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
