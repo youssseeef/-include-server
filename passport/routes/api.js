@@ -51,10 +51,25 @@ router.post('/signin', function(req, res) {
     });
 });
 router.post('/validateToken', passport.authenticate('jwt', { session: false }), (req, res) => {
-    console.log(req.headers);
-    res.status(200).json({
-        success: 'OK',
-    })
+    console.log(req.headers['authorization']);
+    if (req.headers && req.headers.authorization) {
+        let authorization = req.headers.authorization;
+        let decoded;
+        try {
+            decoded = jwt.verify(authorization, config.secret);
+        } catch (e) {
+            return res.status(401).send('unauthorized');
+        }
+        var userId = decoded.id;
+        User.findOne({ _id: userId }).then((user) => {
+            res.status(200).json({
+                success: 'OK',
+                userData: user
+            })
+        })
+    }
+    return res.send(500);
+
 });
 router.post('postUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
     //this will
