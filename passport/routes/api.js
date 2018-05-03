@@ -57,7 +57,8 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
         try {
             return res.status(200).json({
                 success: 'OK',
-                user: req.user
+                userId: req.user['_id'],
+                userType: req.user['userType']
                     //userName: user.username,
                     // userType: user.userType
             });
