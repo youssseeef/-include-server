@@ -59,7 +59,7 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
                 if (err) {
                     return res.status(401).send('unauthorized');
                 } else {
-                    consoel.log(decoded)
+                    console.log(decoded)
                     var userId = decoded.id;
                     User.findOne({ _id: userId }).then((user) => {
                         console.log(user);
