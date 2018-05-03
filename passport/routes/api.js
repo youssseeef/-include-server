@@ -63,7 +63,7 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
         }
         var userId = decoded.id;
         User.findOne({ _id: userId }).then((user) => {
-            res.status(200).json({
+            return res.status(200).json({
                 success: 'OK',
                 userData: user
             })
