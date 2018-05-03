@@ -53,10 +53,10 @@ router.post('/signin', function(req, res) {
 router.post('/validateToken', passport.authenticate('jwt', { session: false }), (req, res) => {
     console.log(req.headers['authorization']);
     if (req.headers && req.headers.authorization) {
-        let authorization = req.headers.authorization;
+        let authorization = req.headers.authorization.split[' '][1];
         let decoded;
         try {
-            decoded = jwt.verify(authorization.split[' '][1], config.secret);
+            decoded = jwt.verify(authorization, config.secret);
         } catch (e) {
             return res.status(401).send('unauthorized');
         }
