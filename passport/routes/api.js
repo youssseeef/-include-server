@@ -51,6 +51,7 @@ router.post('/signin', function(req, res) {
     });
 });
 router.post('/validateToken', passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log(req.headers['Authorization']);
     res.sendStatus(200).json({
         success: 'true'
     })
