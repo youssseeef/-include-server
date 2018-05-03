@@ -56,7 +56,7 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
         let authorization = req.headers.authorization;
         let decoded;
         try {
-            decoded = jwt.verify(authorization, config.secret);
+            decoded = jwt.verify(authorization.split[' '][1], config.secret);
         } catch (e) {
             return res.status(401).send('unauthorized');
         }
