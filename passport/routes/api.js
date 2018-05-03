@@ -61,13 +61,13 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
                 } else {
                     console.log(decoded)
                     let userId = decoded.id;
-                    User.findOne({ '_id': userId }).then((err, user) => {
+                    User.findOne({ _id: userId }).then((err, user) => {
                         console.log(user);
                         console.log(userId);
                         console.log(err);
                         return res.status(200).json({
                             success: 'OK',
-                            userName: user.username,
+                            //userName: user.username,
                             // userType: user.userType
                         });
                     }).catch((error) => {
