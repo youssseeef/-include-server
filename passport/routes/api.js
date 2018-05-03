@@ -68,7 +68,7 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
                         return res.status(200).json({
                             success: 'OK',
                             userName: user.username,
-                            userType: user.userType
+                            // userType: user.userType
                         });
                     }).catch((error) => {
                         return res.status(401).send('unauthorized');
