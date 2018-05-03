@@ -56,16 +56,21 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
         let authorization = req.headers.authorization.split([' '])[1];
         try {
             jwt.verify(authorization, config.secret, (err, decoded) => {
-                var userId = decoded.id;
-                User.findOne({ _id: userId }).then((user) => {
-                    console.log(user);
-                    console.log(userId);
-                    return res.status(200).json({
-                        success: 'OK',
-                        userName: user.username,
-                        userType: user.userType
+                if (err) {
+                    return res.status(401).send('unauthorized');
+                } else {
+                    var userId = decoded.id;
+                    User.findOne({ _id: userId }).then((user) => {
+                        console.log(user);
+                        console.log(userId);
+                        return res.status(200).json({
+                            success: 'OK',
+                            userName: user.username,
+                            userType: user.userType
+                        });
                     });
-                });
+                }
+
             });
         } catch (e) {
             console.log(e);
