@@ -64,6 +64,7 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
                     User.findOne({ '_id': userId }).then((err, user) => {
                         console.log(user);
                         console.log(userId);
+                        console.log(err);
                         return res.status(200).json({
                             success: 'OK',
                             userName: user.username,
