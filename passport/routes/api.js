@@ -82,7 +82,7 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
     return res.status(500);
 
 });
-router.post('postUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post('/postUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
     //this will
     /**
      * 1- Validate the user asscociated with the token.
@@ -93,7 +93,7 @@ router.post('postUserData', passport.authenticate('jwt', { session: false }), (r
 
 
 })
-router.post('getUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post('/getUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
     //This will get the data associated with the current user associated with JWT
     //This should be using the user's unique id.
     //this will get all the data for the app to display when the user opens the view.
