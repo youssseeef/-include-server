@@ -4,30 +4,41 @@
  * to do the required function.
  * @author Youssseeef
  * */
+
+//this are the main modules used
 const express = require('express');
 const bodyparser = require('body-parser');
+//used for validation and authentication and userdata
 var mongoose = require('mongoose');
 var passport = require('passport');
+//used for the configuration and secrets. Grabs them from env vars
 var config = require('../passport/config/database');
+//these are the routes for signin-up and signin-in
 let api = require('../passport/routes/api');
+//connects mangoose to db
 mongoose.connect(config.database);
-
+//local helpers, these modules are the main modules.
 const algorithms = require('./algorithms');
 const dbController = require('../database/database-controller');
 const dataGenerator = require('../dataGenerator/generate-data');
 const locationController = require('../locationAPIs/locationController');
 
-
+//express initialization
 const app = express();
+
+//Access Control Middleware - provides access to different domains
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
+//this initializes passport for authentication for some specific modules
 app.use(passport.initialize());
 
 //Middleware - body-parser json
-app.use(bodyparser.json())
+app.use(bodyparser.json());
+//authentication middleware on api2 endpoint
 app.use('/api2', api);
 /**
  * This API is responsible to clear the database
@@ -35,20 +46,24 @@ app.use('/api2', api);
  * This should be deleted after testing in the deployment version.
  */
 app.get('/api/reset', (req, res) => {
-    //dataGenerator.clearAndReset();
     dbController.resetTheDemo();
     res.sendStatus(200);
 });
-//Fordbidden access - no get requests 
+//Forbidden access - no get requests 
 app.get('/**', (req, res) => {
     res.sendStatus(403);
 });
 
 
-//Fordbidden access - no post to this endpoint requests 
+//Forbidden access - no post to this endpoint requests 
 app.post('/api/', (req, res) => {
     res.sendStatus(403);
 });
+
+/**
+ * These are the main endpoints of our system. /api/ endpoint is for location/updates related functionality.
+ */
+
 
 /**
  * This endpoint is mainly responsible for posting updates to a car
@@ -59,26 +74,31 @@ app.post('/api/', (req, res) => {
 
 app.post('/api/cars/request', (req, res) => {
     const TIME_DIFFERENCE = 1000 * 10; //10 seconds
-    let carId = req.body.carId;
-    dbController.getCarData(carId, (returnedData) => {
-        let longitude = returnedData.location.longitude
-        let latitude = returnedData.location.latitude;
-        let altitude = returnedData.location.altitude;
-        locationController.fetchLocationId(latitude, longitude, altitude, (roadName) => {
-            log(roadName)
-            dbController.getCarsOnRoad(roadName, algorithms.timeStampGenerator(), TIME_DIFFERENCE, (arrayOfCarsOnRoad, accidentsOnRoad) => {
-                res.json({
-                    arrayOfCarsOnRoad,
-                    accidentsOnRoad
+    if (req.body !== null && req.body.carId !== null) {
+        dbController.getCarData(carId, (returnedData) => {
+            //location data returned from the car, we'll use it to get the data from the database
+            //for the nearby cars
+            let longitude = returnedData.location.longitude
+            let latitude = returnedData.location.latitude;
+            let altitude = returnedData.location.altitude;
+
+            locationController.fetchLocationId(latitude, longitude, altitude, (roadName) => {
+                log(roadName)
+                dbController.getCarsOnRoad(roadName, algorithms.timeStampGenerator(), TIME_DIFFERENCE, (arrayOfCarsOnRoad, accidentsOnRoad) => {
+                    res.json({
+                        arrayOfCarsOnRoad,
+                        accidentsOnRoad
+                    })
                 })
+
             })
 
-        })
+        });
+        res.sendStatus(200);
+    } else {
+        res.sendStatus(403);
+    }
 
-    })
-
-
-    res.sendStatus(200);
 
 });
 /**
@@ -94,10 +114,10 @@ app.post('/api/cars/update', (req, res) => {
     try {
         //req.body = JSON.parse(req.body);
         let reqVerified =
-            req.body.carId &&
-            req.body.accidentStatus &&
-            req.body.speed &&
-            req.body.location;
+            req.body.carId !== null &&
+            req.body.accidentStatus !== null &&
+            req.body.speed !== null &&
+            req.body.location !== null;
         //Should update the database with the car details.
         //if there's an accident, should execute the accident algorithm
         console.log(reqVerified)
@@ -121,7 +141,6 @@ app.post('/api/cars/update', (req, res) => {
                 }, "random road for now");
 
             }
-            //hacky solution - 1-endpoint to rule them all
             res.sendStatus(200)
         } else {
             res.sendStatus(403)
@@ -150,11 +169,11 @@ app.post('/api/sos/ambulance', (req, res) => {
  * This is what the ambulance updates its location
  */
 app.post('/api/sos/updateAmbulance', (req, res) => {
-    let reqVerified = req != undefined &&
-        req.body != undefined &&
-        req.body.longitude != undefined &&
-        req.body.latitude != undefined &&
-        req.body.ambulanceId != undefined;
+    let reqVerified = req !== undefined &&
+        req.body !== undefined &&
+        req.body.longitude !== undefined &&
+        req.body.latitude !== undefined &&
+        req.body.ambulanceId !== undefined;
     if (reqVerified) {
         dbController.getAmbulanceData(req.body.ambulanceId, (oldAmbData) => {
             let newAmbData = oldAmbData;

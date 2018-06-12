@@ -6,7 +6,7 @@ var express = require('express');
 var jwt = require('jsonwebtoken');
 var router = express();
 var User = require("../models/user");
-
+var MedicalUser = require("../models/medicalprofile");
 router.post('/signup', function(req, res) {
     console.log(req.body.username)
     if (!req.body.username || !req.body.password || !req.body.userType) {
@@ -24,6 +24,19 @@ router.post('/signup', function(req, res) {
             }
             res.json({ success: true, msg: 'Successful created new user.' });
         });
+        if (req.body.userType == "medicalProfile" && req.body.hasOwnProperty('fullName')) {
+            var newMedicalUser = new MedicalUser({
+                username: req.body.username,
+                fullname: req.body.fullname
+            });
+            MedicalUser.save(function(err) {
+                if (err) {
+                    return console.log({ success: false, msg: 'MedicalUser already exists.' });
+                }
+                console.log({ success: true, msg: 'Successful created new Medical user.' });
+            });
+        }
+
     }
 });
 
@@ -59,8 +72,6 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
                 success: 'OK',
                 userId: req.user['_id'],
                 userType: req.user['userType']
-                    //userName: user.username,
-                    // userType: user.userType
             });
         } catch (e) {
             console.log(e);
@@ -78,6 +89,9 @@ router.post('postUserData', passport.authenticate('jwt', { session: false }), (r
      * 2- Validate the data types.
      * 3- post the data to mongodb to update the user's data.
      */
+    console.log(req.user)
+
+
 })
 router.post('getUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
     //This will get the data associated with the current user associated with JWT

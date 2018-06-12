@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
-
+//for cars and ambulances and medical profiles
+//when medical profile is created, it creates one in this with the login data only
 var UserSchema = new Schema({
     username: {
         type: String,
