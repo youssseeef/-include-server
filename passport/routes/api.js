@@ -89,7 +89,7 @@ router.post('postUserData', passport.authenticate('jwt', { session: false }), (r
      * 2- Validate the data types.
      * 3- post the data to mongodb to update the user's data.
      */
-    console.log(req.user)
+    res.json(req.user)
 
 
 })
