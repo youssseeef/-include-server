@@ -145,9 +145,16 @@ router.post('/getUserData', passport.authenticate('jwt', { session: false }), (r
                     error: error
                 });
             }
-            res.json({
-                answer: answer
-            });
+            if (answer === null) {
+                res.json({
+                    error: 'no user found'
+                });
+            } else {
+                res.json({
+                    answer: answer
+                });
+            }
+
         })
     }
 })
