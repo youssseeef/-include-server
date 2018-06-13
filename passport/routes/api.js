@@ -131,6 +131,8 @@ router.post('/postUserData', passport.authenticate('jwt', { session: false }), (
             res.json({ success: true, msg: 'Data successfully updated!' });
         });
 
+    } else {
+        res.json({ error: "invalid data.." })
     }
 })
 router.post('/getUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
