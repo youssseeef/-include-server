@@ -6,7 +6,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 var MedicalUserSchema = new Schema({
     //username here is email. PW and usertype from other model
-    usename: {
+    username: {
         type: String,
         unique: true,
         required: true

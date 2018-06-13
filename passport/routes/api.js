@@ -29,11 +29,11 @@ router.post('/signup', function(req, res) {
                 username: req.body.username,
                 fullname: req.body.fullname
             });
-            MedicalUser.save(function(err) {
+            newMedicalUser.save(function(err) {
                 if (err) {
                     return console.log({ success: false, msg: 'MedicalUser already exists.' });
                 }
-                console.log({ success: true, msg: 'Successful created new Medical user.' });
+                return console.log({ success: true, msg: 'Successful created new Medical user.' });
             });
         }
 
@@ -82,6 +82,12 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
     return res.status(500);
 
 });
+
+/**
+ * This endpoint is responsible to post the medical user data to their account.
+ * the user should be using a token jwt.
+ * The data gets passed as is to the database
+ */
 router.post('/postUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
     //this will
     /**
@@ -89,15 +95,61 @@ router.post('/postUserData', passport.authenticate('jwt', { session: false }), (
      * 2- Validate the data types.
      * 3- post the data to mongodb to update the user's data.
      */
-    res.json(req.user)
+    if (req.user !== null && req.user.userType === "medicalProfile" && req.user.username === req.body.username) {
+        var medUser = new MedicalUser({
+            username: req.user.username,
+            fullName: req.body.fullname,
+            phoneNumber: req.body.phoneNumber,
+            emergencyContactName: req.body.emergencyContactName,
+            emergencyPhoneNumber: req.body.emergencyPhoneNumber,
+            birthYear: req.body.birthYear,
+            birthMonth: req.body.birthMonth,
+            birthDay: req.body.birthDay,
+            surgicalHistory: req.body.surgicalHistory,
+            currentMedications: req.body.currentMedications,
+            allergiesToDrugs: req.body.allergiesToDrugs,
+            bloodGroup: req.body.bloodGroup,
+            addict: req.body.addict,
+            smoker: req.body.smoker,
+            cancer: req.body.cancer,
+            chronicObstructive: req.body.chronicObstructive,
+            disease: req.body.disease,
+            clotticDisorder: req.body.clotticDisorder,
+            heartFailure: req.body.heartFailure,
+            diabetes: req.body.diabetes,
+            emhysema: req.body.emhysema,
+            hepatitis: req.body.hepatitis,
+            hyperTension: req.body.hyperTension,
+            myocardialInfraction: req.body.myocardialInfraction,
+            seizures: req.body.seizures,
+            strokes: req.body.strokes
+        });
+        medUser.save(function(err) {
+            if (err) {
+                return res.json({ success: false, msg: 'Error updating data.' });
+            }
+            res.json({ success: true, msg: 'Data successfully updated!' });
+        });
 
-
+    }
 })
 router.post('/getUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
     //This will get the data associated with the current user associated with JWT
     //This should be using the user's unique id.
     //this will get all the data for the app to display when the user opens the view.
     //this will check if there's no data, we'll send some kind of empty response
+    if (req.user !== null && req.user.userType === "medicalProfile" && req.user.username === req.body.username) {
+        MedicalUser.find({ username = req.body.username }, (error, answer) => {
+            if (error) {
+                res.json({
+                    error: error
+                });
+            }
+            res.json({
+                answer: answer
+            });
+        })
+    }
 })
 getToken = function(headers) {
     if (headers && headers.authorization) {
