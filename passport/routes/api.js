@@ -139,7 +139,7 @@ router.post('/getUserData', passport.authenticate('jwt', { session: false }), (r
     //this will get all the data for the app to display when the user opens the view.
     //this will check if there's no data, we'll send some kind of empty response
     if (req.user !== null && req.user.userType === "medicalProfile" && req.user.username === req.body.username) {
-        MedicalUser.find({ username = req.body.username }, (error, answer) => {
+        MedicalUser.findOne({ username = req.body.username }, (error, answer) => {
             if (error) {
                 res.json({
                     error: error
