@@ -96,34 +96,72 @@ router.post('/postUserData', passport.authenticate('jwt', { session: false }), (
      * 3- post the data to mongodb to update the user's data.
      */
     if (req.user !== null && req.user.userType === "medicalProfile" && req.user.username === req.body.username) {
-        var medUser = new MedicalUser({
-            username: req.user.username,
-            fullName: req.body.fullname,
-            phoneNumber: req.body.phoneNumber,
-            emergencyContactName: req.body.emergencyContactName,
-            emergencyPhoneNumber: req.body.emergencyPhoneNumber,
-            birthYear: req.body.birthYear,
-            birthMonth: req.body.birthMonth,
-            birthDay: req.body.birthDay,
-            surgicalHistory: req.body.surgicalHistory,
-            currentMedications: req.body.currentMedications,
-            allergiesToDrugs: req.body.allergiesToDrugs,
-            bloodGroup: req.body.bloodGroup,
-            addict: req.body.addict,
-            smoker: req.body.smoker,
-            cancer: req.body.cancer,
-            chronicObstructive: req.body.chronicObstructive,
-            disease: req.body.disease,
-            clotticDisorder: req.body.clotticDisorder,
-            heartFailure: req.body.heartFailure,
-            diabetes: req.body.diabetes,
-            emhysema: req.body.emhysema,
-            hepatitis: req.body.hepatitis,
-            hyperTension: req.body.hyperTension,
-            myocardialInfraction: req.body.myocardialInfraction,
-            seizures: req.body.seizures,
-            strokes: req.body.strokes
+        MedicalUser.findOne({ username: req.user.username }, function(err, user) {
+            let userMongooseId = user._id;
+            MedicalUser.findById(userMongooseId, (err, userData) => {
+                console.log(userData)
+                userData.fullName = req.body.fullname;
+                userData.phoneNumber = req.body.phoneNumber;
+                userData.emergencyContactName = req.body.emergencyContactName;
+                userData.emergencyPhoneNumber = req.body.emergencyPhoneNumber;
+                userData.birthYear = req.body.birthYear;
+                userData.birthMonth = req.body.birthMonth;
+                userData.birthDay = req.body.birthDay;
+                userData.surgicalHistory = req.body.surgicalHistory;
+                userData.currentMedications = req.body.currentMedications;
+                userData.allergiesToDrugs = req.body.allergiesToDrugs;
+                userData.bloodGroup = req.body.bloodGroup;
+                userData.addict = req.body.addict;
+                userData.smoker = req.body.smoker;
+                userData.cancer = req.body.cancer;
+                userData.chronicObstructive = req.body.chronicObstructive;
+                userData.disease = req.body.disease;
+                userData.clotticDisorder = req.body.clotticDisorder;
+                userData.heartFailure = req.body.heartFailure;
+                userData.diabetes = req.body.diabetes;
+                userData.emhysema = req.body.emhysema;
+                userData.hepatitis = req.body.hepatitis;
+                userData.hyperTension = req.body.hyperTension;
+                userData.myocardialInfraction = req.body.myocardialInfraction;
+                userData.seizures = req.body.seizures;
+                userData.strokes = req.body.strokes;
+                userData.save(function(err) {
+                    if (err) {
+                        return res.json({ success: false, msg: 'Error updating data.' });
+                    }
+                    res.json({ success: true, msg: 'Data successfully updated!' });
+                });
+            });
         });
+
+        // var medUser = new MedicalUser({
+        //     username: req.user.username,
+        //     fullName: req.body.fullname,
+        //     phoneNumber: req.body.phoneNumber,
+        //     emergencyContactName: req.body.emergencyContactName,
+        //     emergencyPhoneNumber: req.body.emergencyPhoneNumber,
+        //     birthYear: req.body.birthYear,
+        //     birthMonth: req.body.birthMonth,
+        //     birthDay: req.body.birthDay,
+        //     surgicalHistory: req.body.surgicalHistory,
+        //     currentMedications: req.body.currentMedications,
+        //     allergiesToDrugs: req.body.allergiesToDrugs,
+        //     bloodGroup: req.body.bloodGroup,
+        //     addict: req.body.addict,
+        //     smoker: req.body.smoker,
+        //     cancer: req.body.cancer,
+        //     chronicObstructive: req.body.chronicObstructive,
+        //     disease: req.body.disease,
+        //     clotticDisorder: req.body.clotticDisorder,
+        //     heartFailure: req.body.heartFailure,
+        //     diabetes: req.body.diabetes,
+        //     emhysema: req.body.emhysema,
+        //     hepatitis: req.body.hepatitis,
+        //     hyperTension: req.body.hyperTension,
+        //     myocardialInfraction: req.body.myocardialInfraction,
+        //     seizures: req.body.seizures,
+        //     strokes: req.body.strokes
+        // });
         medUser.save(function(err) {
             if (err) {
                 return res.json({ success: false, msg: 'Error updating data.' });
@@ -135,6 +173,11 @@ router.post('/postUserData', passport.authenticate('jwt', { session: false }), (
         res.json({ error: "invalid data.." })
     }
 })
+
+
+router.post('/changeUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
+
+});
 router.post('/getUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
     //This will get the data associated with the current user associated with JWT
     //This should be using the user's unique id.
