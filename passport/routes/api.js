@@ -162,12 +162,12 @@ router.post('/postUserData', passport.authenticate('jwt', { session: false }), (
         //     seizures: req.body.seizures,
         //     strokes: req.body.strokes
         // });
-        medUser.save(function(err) {
-            if (err) {
-                return res.json({ success: false, msg: 'Error updating data.' });
-            }
-            res.json({ success: true, msg: 'Data successfully updated!' });
-        });
+        // medUser.save(function(err) {
+        //     if (err) {
+        //         return res.json({ success: false, msg: 'Error updating data.' });
+        //     }
+        //     res.json({ success: true, msg: 'Data successfully updated!' });
+        // });
 
     } else {
         res.json({ error: "invalid data.." })
