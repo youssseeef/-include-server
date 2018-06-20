@@ -98,6 +98,7 @@ router.post('/postUserData', passport.authenticate('jwt', { session: false }), (
      * 3- post the data to mongodb to update the user's data.
      */
     if (req.user !== null && req.user.userType === "medicalProfile" && req.user.username === req.body.username) {
+        console.log('Confused duckkk!!!')
         MedicalUser.findOne({ username: req.user.username }, function(err, userAnswer) {
             console.log('errors?' + err);
             console.log('userans' + userAnswer);
