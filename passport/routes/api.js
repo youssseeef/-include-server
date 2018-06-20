@@ -91,6 +91,10 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
  */
 router.post('/postUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
     console.log(req.user.username === req.body.username);
+    console.log(req.user.username);
+    console.log(req.body.username);
+
+
     //this will
     /**
      * 1- Validate the user asscociated with the token.
