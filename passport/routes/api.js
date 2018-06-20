@@ -31,6 +31,7 @@ router.post('/signup', function(req, res) {
             });
             newMedicalUser.save(function(err) {
                 if (err) {
+                    console.log(err)
                     return console.log({ success: false, msg: 'MedicalUser already exists.' });
                 }
                 return console.log({ success: true, msg: 'Successful created new Medical user.' });
