@@ -99,7 +99,7 @@ router.post('/postUserData', passport.authenticate('jwt', { session: false }), (
      */
     if (req.user !== null && req.user.userType === "medicalProfile" && req.user.username === req.body.username) {
         MedicalUser.findOne({ username: req.user.username }, function(err, userAnswer) {
-            console.log(err);
+            console.log('errors?' + err);
             console.log('userans' + userAnswer);
 
             console.log('got here!!!');
