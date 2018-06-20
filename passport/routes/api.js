@@ -89,6 +89,7 @@ router.post('/validateToken', passport.authenticate('jwt', { session: false }), 
  * The data gets passed as is to the database
  */
 router.post('/postUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log(req.body);
     //this will
     /**
      * 1- Validate the user asscociated with the token.
