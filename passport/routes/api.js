@@ -27,7 +27,7 @@ router.post('/signup', function(req, res) {
         if (req.body.userType == "medicalProfile" && req.body.hasOwnProperty('fullName')) {
             var newMedicalUser = new MedicalUser({
                 username: req.body.username,
-                fullName: req.body.fullname
+                fullName: req.body.fullName
             });
             newMedicalUser.save(function(err) {
                 if (err) {
