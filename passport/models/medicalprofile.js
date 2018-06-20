@@ -56,59 +56,59 @@ var MedicalUserSchema = new Schema({
         required: false
     },
     addict: {
-        type: Boolean,
+        type: String,
         required: false
     },
     smoker: {
-        type: Boolean,
+        type: String,
         required: false
     },
     cancer: {
-        type: Boolean,
+        type: String,
         required: false
     },
     chronicObstructive: {
-        type: Boolean,
+        type: String,
         required: false
     },
     disease: {
-        type: Boolean,
+        type: String,
         required: false
     },
     clotticDisorder: {
-        type: Boolean,
+        type: String,
         required: false
     },
     heartFailure: {
-        type: Boolean,
+        type: String,
         required: false
     },
     diabetes: {
-        type: Boolean,
+        type: String,
         required: false
     },
     emhysema: {
-        type: Boolean,
+        type: String,
         required: false
     },
     hepatitis: {
-        type: Boolean,
+        type: String,
         required: false
     },
     hyperTension: {
-        type: Boolean,
+        type: String,
         required: false
     },
     myocardialInfraction: {
-        type: Boolean,
+        type: String,
         required: false
     },
     seizures: {
-        type: Boolean,
+        type: String,
         required: false
     },
     strokes: {
-        type: Boolean,
+        type: String,
         required: false
     },
 
