@@ -138,6 +138,7 @@ router.post('/postUserData', passport.authenticate('jwt', { session: false }), (
                 userData.seizures = req.body.seizures;
                 userData.strokes = req.body.strokes;
                 userData.save(function(err) {
+                    console.log(err)
                     if (err) {
                         return res.json({ success: false, msg: 'Error updating data.' });
                     }
