@@ -45,12 +45,14 @@ function addMedicalUserToQR(medicalUserId, carId, callback) {
             //let's create it
             value = {}
             value[medicalUserId] = "not permanent";
+            client.hset('medicalAssociation', carId, JSON.stringify(value));
             callback(null, { success: "QR added" });
 
         } else {
             //let's add it
             value = JSON.parse(value);
             value[medicalUserId] = "not permanent";
+            client.hset('medicalAssociation', carId, JSON.stringify(value));
             callback(null, { success: "QR added" });
         }
     })
