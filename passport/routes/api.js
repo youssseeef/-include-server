@@ -110,6 +110,7 @@ router.post('/postUserData', passport.authenticate('jwt', { session: false }), (
             console.log('got here!!!');
             let userMongooseId = userAnswer._id;
             MedicalUser.findById(userMongooseId, (err, userData) => {
+                console.log(err);
                 console.log('user_data' + userData)
                 userData.fullName = req.body.fullname;
                 userData.phoneNumber = req.body.phoneNumber;
