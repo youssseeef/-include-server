@@ -7,6 +7,7 @@ var jwt = require('jsonwebtoken');
 var router = express();
 var User = require("../models/user");
 var MedicalUser = require("../models/medicalprofile");
+var databaseController = require("../../database/database-controller");
 router.post('/signup', function(req, res) {
     console.log(req.body.username)
     if (!req.body.username || !req.body.password || !req.body.userType) {
@@ -188,8 +189,25 @@ router.post('/postUserData', passport.authenticate('jwt', { session: false }), (
 })
 
 
-router.post('/changeUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post('/carAddQR', passport.authenticate('jwt', { session: false }), (req, res) => {
+    if (req.user !== null &&
+        req.user.userType === "medicalProfile" &&
+        req.user.username === req.body.username &&
+        req.body.carId !== null) {
 
+        databaseController.addMedicalUserToQR(req.body.username, req.body.carId, (err, answer) => {
+            if (err) {
+                return res.sendStatus(404).json({
+                    error: err
+                });
+            }
+            res.json(answer);
+        })
+    } else {
+        return res.sendStatus(404).json({
+            error: "Check your request"
+        })
+    }
 });
 router.post('/getUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
     //This will get the data associated with the current user associated with JWT

@@ -150,6 +150,15 @@ app.post('/api/cars/update', (req, res) => {
     }
 
 });
+
+//this should return a JSON object containing usernames
+//of users that were added to the database of users for a specific user.
+
+app.post('/api/cars/getAssociatedQRs', (req, res) => {
+    //this should return some json object containing an array
+});
+
+
 /**
  * This is what the rescue cars gets its assignments from - if any -
  */
@@ -168,6 +177,7 @@ app.post('/api/sos/ambulance', (req, res) => {
 /**
  * This is what the ambulance updates its location
  */
+
 app.post('/api/sos/updateAmbulance', (req, res) => {
     let reqVerified = req !== undefined &&
         req.body !== undefined &&
