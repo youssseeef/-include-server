@@ -201,7 +201,7 @@ router.post('/carAddQR', passport.authenticate('jwt', { session: false }), (req,
                     error: err
                 });
             }
-            res.json(answer);
+            return res.json(answer);
         })
     } else {
         return res.sendStatus(404).json({
