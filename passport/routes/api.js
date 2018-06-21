@@ -112,7 +112,7 @@ router.post('/postUserData', passport.authenticate('jwt', { session: false }), (
             MedicalUser.findById(userMongooseId, (err, userData) => {
                 console.log(err);
                 console.log('user_data' + userData)
-                userData.fullName = req.body.fullname;
+                userData.fullName = req.body.fullName;
                 userData.phoneNumber = req.body.phoneNumber;
                 userData.emergencyContactName = req.body.emergencyContactName;
                 userData.emergencyPhoneNumber = req.body.emergencyPhoneNumber;
