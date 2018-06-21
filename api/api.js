@@ -156,6 +156,16 @@ app.post('/api/cars/update', (req, res) => {
 
 app.post('/api/cars/getAssociatedQRs', (req, res) => {
     //this should return some json object containing an array
+    if (req !== null && req.body !== null && req.body.carId !== null) {
+        dbController.getMedicalUsersAssociatedWithCar(req.body.carId, (err, response) => {
+            if (err) return res.sendStatus(404);
+            if (response) {
+                return res.json(response);
+            } else {
+                return res.sendStatus(404);
+            }
+        });
+    }
 });
 
 

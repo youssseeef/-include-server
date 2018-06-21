@@ -55,7 +55,21 @@ function addMedicalUserToQR(medicalUserId, carId, callback) {
             client.hset('medicalAssociation', carId, JSON.stringify(value));
             callback(null, { success: "QR added" });
         }
-    })
+    });
+}
+
+function getMedicalUsersAssociatedWithCar(carId, callback) {
+    client.hget('medicalAssociation', carId, (err, value) => {
+        if (err) callback(err, null);
+        if (value === "" || value === null || value === undefined) {
+            callback(null, { success: {} });
+
+        } else {
+            //let's add it
+            value = JSON.parse(value);
+            callback(null, { success: value });
+        }
+    });
 }
 
 function updateRescueData(newData, carId) {
@@ -213,4 +227,5 @@ module.exports = {
     clearAmbulanceRequest,
     resetTheDemo,
     addMedicalUserToQR,
+    getMedicalUsersAssociatedWithCar,
 }
