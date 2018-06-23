@@ -75,7 +75,7 @@ app.post('/api/', (req, res) => {
 app.post('/api/cars/request', (req, res) => {
     const TIME_DIFFERENCE = 1000 * 10; //10 seconds
     if (req.body !== null && req.body.carId !== null) {
-        dbController.getCarData(carId, (returnedData) => {
+        dbController.getCarData(req.body.carId, (returnedData) => {
             //location data returned from the car, we'll use it to get the data from the database
             //for the nearby cars
             let longitude = returnedData.location.longitude
