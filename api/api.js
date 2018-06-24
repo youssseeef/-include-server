@@ -180,9 +180,29 @@ app.post('/api/sos/rescue', (req, res) => {
 /**
  * This is what the ambulance gets its assignments from - if any -
  */
-app.post('/api/sos/ambulance', (req, res) => {
-    console.log(req.body)
-    res.sendStatus(200);
+app.post('/api/sos/getAmbulanceData', (req, res) => {
+    let reqVerified = req !== undefined &&
+        req.body !== undefined &&
+        req.body.longitude !== undefined &&
+        req.body.latitude !== undefined &&
+        req.body.ambulanceId !== undefined &&
+        req.body.ambulanceReadyToTake !== undefined;
+    if (reqVerified) {
+        dbController.getAmbulanceData(req.body.ambulanceId, (oldAmbData) => {
+            try {
+                return res.json(oldAmbData);
+            } catch (error) {
+                return res.sendStatus(404).json({
+                    error: "Not JSON data."
+                });
+
+            }
+        });
+    } else {
+        return res.sendStatus(404).json({
+            error: "wrong request"
+        });
+    }
 });
 /**
  * This is what the ambulance updates its location
@@ -193,7 +213,8 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
         req.body !== undefined &&
         req.body.longitude !== undefined &&
         req.body.latitude !== undefined &&
-        req.body.ambulanceId !== undefined;
+        req.body.ambulanceId !== undefined &&
+        req.body.ambulanceReadyToTake !== undefined;
     if (reqVerified) {
         dbController.getAmbulanceData(req.body.ambulanceId, (oldAmbData) => {
             let newAmbData = oldAmbData;
@@ -201,6 +222,7 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
                 longitude: parseFloat(parseFloat(req.body.longitude).toFixed(5)),
                 latitude: parseFloat(parseFloat(req.body.latitude).toFixed(5))
             };
+            newAmbData['ambulanceReadyToTake'] = req.body.ambulanceReadyToTake;
             dbController.updateAmbulanceData(newAmbData, req.body.ambulanceId, (errrrr) => {
                 dbController.getAmbulanceData(req.body.ambulanceId, (ambData) => {
                     console.log(ambData)
