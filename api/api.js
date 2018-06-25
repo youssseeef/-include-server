@@ -217,6 +217,7 @@ app.post('/api/sos/endAccident', (req, res) => {
                 delete newAmbData.carAssigned;
                 dbController.updateAmbulanceData(newAmbData, ambulanceId, (error) => {
                     if (error === null || error === undefined) {
+                        console.log(error);
                         res.json({ updated: "accident ended" });
                     } else {
                         res.sendStatus(403).json({ error: "some error happened" });
