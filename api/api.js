@@ -183,10 +183,7 @@ app.post('/api/sos/rescue', (req, res) => {
 app.post('/api/sos/getAmbulanceData', (req, res) => {
     let reqVerified = req !== undefined &&
         req.body !== undefined &&
-        req.body.longitude !== undefined &&
-        req.body.latitude !== undefined &&
-        req.body.ambulanceId !== undefined &&
-        req.body.ambulanceReadyToTake !== undefined;
+        req.body.ambulanceId !== undefined;
     if (reqVerified) {
         dbController.getAmbulanceData(req.body.ambulanceId, (oldAmbData) => {
             try {
@@ -199,9 +196,9 @@ app.post('/api/sos/getAmbulanceData', (req, res) => {
             }
         });
     } else {
-        // return res.sendStatus(404).json({
-        //     error: "wrong request"
-        // });
+        return res.sendStatus(404).json({
+            error: "wrong request"
+        });
     }
 });
 /**
