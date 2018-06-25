@@ -219,6 +219,7 @@ app.post('/api/sos/endAccident', (req, res) => {
                 let newAmbData = oldAmbData;
                 delete newAmbData.carAssigned;
                 console.log(newAmbData);
+                console.log(typeof newAmbData)
                 dbController.updateAmbulanceData(newAmbData, ambulanceId, (error) => {
                     console.log('HEREHERE');
                     console.log(error)
@@ -234,6 +235,7 @@ app.post('/api/sos/endAccident', (req, res) => {
             }
         });
     } else {
+        console.log('got here...')
         return res.sendStatus(403).json({ "error": "wrong params" });
     }
 
