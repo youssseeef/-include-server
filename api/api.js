@@ -226,14 +226,14 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
                     if (ambData['carAssigned'] != undefined) {
                         console.log("RESPONSE SENT!")
                         dbController.getCarData(ambData['carAssigned']['carId'], (carData) => {
-                            res.json({
+                            return res.json({
                                 carAssigned: ambData['carAssigned'],
                                 carLocation: carData['location']
                             });
                         })
 
                     } else {
-                        res.json({
+                        return res.json({
                             none: none
                         });
 
@@ -244,7 +244,7 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
 
 
     } else {
-        res.sendStatus(403);
+        return res.sendStatus(403);
     }
     //res.sendStatus(200);
 });
