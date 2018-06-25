@@ -199,9 +199,9 @@ app.post('/api/sos/getAmbulanceData', (req, res) => {
             }
         });
     } else {
-        return res.sendStatus(404).json({
-            error: "wrong request"
-        });
+        // return res.sendStatus(404).json({
+        //     error: "wrong request"
+        // });
     }
 });
 /**
