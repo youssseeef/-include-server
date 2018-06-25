@@ -207,6 +207,8 @@ app.post('/api/sos/endAccident', (req, res) => {
 
     let reqVerified = req !== undefined &&
         req.body.ambulanceId !== undefined;
+    console.log(reqVerified);
+
     if (reqVerified) {
         dbController.getAmbulanceData(req.body.ambulanceId, (oldAmbData) => {
             if (oldAmbData === null || oldAmbData === undefined) {
@@ -218,9 +220,9 @@ app.post('/api/sos/endAccident', (req, res) => {
                 dbController.updateAmbulanceData(newAmbData, ambulanceId, (error) => {
                     if (error === null || error === undefined) {
                         console.log(error);
-                        res.json({ updated: "accident ended" });
+                        return res.json({ updated: "accident ended" });
                     } else {
-                        res.sendStatus(403).json({ error: "some error happened" });
+                        return res.sendStatus(403).json({ error: "some error happened" });
                     }
 
                 });
