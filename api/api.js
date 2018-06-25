@@ -211,12 +211,14 @@ app.post('/api/sos/endAccident', (req, res) => {
 
     if (reqVerified) {
         dbController.getAmbulanceData(req.body.ambulanceId, (oldAmbData) => {
+            console.log(oldAmbData);
             if (oldAmbData === null || oldAmbData === undefined) {
                 return res.sendStatus(403).json({ error: "wrong params" });
 
             } else {
                 let newAmbData = oldAmbData;
                 delete newAmbData.carAssigned;
+                console.log(newAmbData);
                 dbController.updateAmbulanceData(newAmbData, ambulanceId, (error) => {
                     if (error === null || error === undefined) {
                         console.log(error);
