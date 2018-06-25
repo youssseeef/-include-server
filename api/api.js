@@ -213,18 +213,33 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
         req.body.latitude !== undefined &&
         req.body.ambulanceId !== undefined &&
         req.body.ambulanceReadyToTake !== undefined;
+    console.log("STAGE1");
     if (reqVerified) {
+        console.log("STAGE2");
+
         dbController.getAmbulanceData(req.body.ambulanceId, (oldAmbData) => {
+            console.log("STAGE3");
+
             let newAmbData = oldAmbData;
             if (newAmbData === undefined || newAmbData === null) {
+                console.log("STAGE4");
+
                 newAmbData = {};
             }
+            console.log("STAGE5");
+
             newAmbData['location'] = {
                 longitude: parseFloat(parseFloat(req.body.longitude).toFixed(5)),
                 latitude: parseFloat(parseFloat(req.body.latitude).toFixed(5))
             };
+            console.log("STAGE6");
+
             newAmbData['ambulanceReadyToTake'] = req.body.ambulanceReadyToTake;
+            console.log("STAGE7");
+
             dbController.updateAmbulanceData(newAmbData, req.body.ambulanceId, (errrrr) => {
+                console.log("STAGE8");
+
                 dbController.getAmbulanceData(req.body.ambulanceId, (ambData) => {
                     console.log(ambData)
                     if (ambData['carAssigned'] !== undefined) {
@@ -237,6 +252,8 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
                         })
 
                     } else {
+                        console.log("STAGE9");
+
                         return res.json({
                             none: none
                         });
@@ -245,11 +262,16 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
                 })
             });
         })
+        console.log("STAGE10");
 
 
     } else {
+        console.log("STAGE11");
+
         return res.sendStatus(403);
     }
+    console.log("STAGE12");
+
     //res.sendStatus(200);
 });
 
