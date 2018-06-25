@@ -224,6 +224,7 @@ app.post('/api/sos/endAccident', (req, res) => {
                         console.log(error);
                         return res.json({ updated: "accident ended" });
                     } else {
+                        console.log('got here')
                         return res.sendStatus(403).json({ error: "some error happened" });
                     }
 
