@@ -220,7 +220,7 @@ app.post('/api/sos/endAccident', (req, res) => {
                 delete newAmbData.carAssigned;
                 console.log(newAmbData);
                 console.log(typeof newAmbData)
-                dbController.updateAmbulanceData(newAmbData, ambulanceId, (error) => {
+                dbController.updateAmbulanceData(newAmbData, req.body.ambulanceId, (error) => {
                     console.log('HEREHERE');
                     console.log(error)
                     if (error === null || error === undefined) {
