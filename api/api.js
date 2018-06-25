@@ -215,6 +215,9 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
     if (reqVerified) {
         dbController.getAmbulanceData(req.body.ambulanceId, (oldAmbData) => {
             let newAmbData = oldAmbData;
+            if (newAmbData === undefined || newAmbData === null) {
+                newAmbData = {};
+            }
             newAmbData['location'] = {
                 longitude: parseFloat(parseFloat(req.body.longitude).toFixed(5)),
                 latitude: parseFloat(parseFloat(req.body.latitude).toFixed(5))
