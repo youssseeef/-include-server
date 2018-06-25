@@ -206,6 +206,7 @@ app.post('/api/sos/getAmbulanceData', (req, res) => {
  */
 
 app.post('/api/sos/updateAmbulance', (req, res) => {
+    console.log(req.body)
     let reqVerified = req !== undefined &&
         req.body !== undefined &&
         req.body.longitude !== undefined &&
