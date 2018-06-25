@@ -201,6 +201,38 @@ app.post('/api/sos/getAmbulanceData', (req, res) => {
         });
     }
 });
+
+//this should clear the accident from the ambulance's side.
+app.post('/api/sos/endAccident', (req, res) => {
+
+    let reqVerified = req !== undefined &&
+        req.body.ambulanceId !== undefined;
+    if (reqVerified) {
+        dbController.getAmbulanceData(req.body.ambulanceId, (oldAmbData) => {
+            if (oldAmbData === null || oldAmbData === undefined) {
+                return res.sendStatus(403).json({ error: "wrong params" });
+
+            } else {
+                let newAmbData = oldAmbData;
+                delete newAmbData.carAssigned;
+                dbController.updateAmbulanceData(newAmbData, ambulanceId, (error) => {
+                    if (error === null || error === undefined) {
+                        res.json({ updated: "accident ended" });
+                    } else {
+                        res.sendStatus(403).json({ error: "some error happened" });
+                    }
+
+                });
+            }
+        });
+    } else {
+        return res.sendStatus(403).json({ "error": "wrong params" });
+    }
+
+
+
+});
+
 /**
  * This is what the ambulance updates its location
  */
