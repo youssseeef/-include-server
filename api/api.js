@@ -254,7 +254,7 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
                     } else {
                         console.log("STAGE9");
 
-                        return res.json({
+                        res.json({
                             none: none
                         });
 
