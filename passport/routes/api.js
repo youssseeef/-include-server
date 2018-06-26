@@ -220,6 +220,32 @@ router.post('/getAmbulanceUsers', passport.authenticate('jwt', { session: false 
         return json.sendStatus(404).json({ error: 'error 312-2' });
     }
 });
+router.post('/getAmbulanceUser', passport.authenticate('jwt', { session: false }), (req, res) => {
+    //This will get the data associated with the current user associated with JWT
+    //This should be using the user's unique id.
+    //this will get all the data for the app to display when the user opens the view.
+    //this will check if there's no data, we'll send some kind of empty response
+    if (req.user !== null && req.user.userType === "ambulance") {
+        MedicalUser.findOne({ username: req.body.username }, (error, answer) => {
+            if (error) {
+                res.json({
+                    error: error
+                });
+            }
+            if (answer === null) {
+                res.json({
+                    error: 'no user found'
+                });
+            } else {
+                res.json({
+                    answer: answer
+                });
+            }
+
+        })
+    }
+});
+
 router.post('/getUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
     //This will get the data associated with the current user associated with JWT
     //This should be using the user's unique id.
