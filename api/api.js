@@ -189,14 +189,14 @@ app.post('/api/sos/getAmbulanceData', (req, res) => {
             try {
                 return res.json(oldAmbData);
             } catch (error) {
-                return res.sendStatus(404).json({
+                return res.status(404).json({
                     error: "Not JSON data."
                 });
 
             }
         });
     } else {
-        return res.sendStatus(404).json({
+        return res.status(404).json({
             error: "wrong request"
         });
     }
@@ -213,7 +213,7 @@ app.post('/api/sos/endAccident', (req, res) => {
         dbController.getAmbulanceData(req.body.ambulanceId, (oldAmbData) => {
             console.log(oldAmbData);
             if (oldAmbData === null || oldAmbData === undefined) {
-                return res.sendStatus(403).json({ error: "wrong params" });
+                return res.status(403).json({ error: "wrong params" });
 
             } else {
                 let newAmbData = oldAmbData;
@@ -228,7 +228,7 @@ app.post('/api/sos/endAccident', (req, res) => {
                         return res.json({ updated: "accident ended" });
                     } else {
                         console.log('got here')
-                        return res.sendStatus(403).json({ error: "some error happened" });
+                        return res.status(403).json({ error: "some error happened" });
                     }
 
                 });
@@ -236,7 +236,7 @@ app.post('/api/sos/endAccident', (req, res) => {
         });
     } else {
         console.log('got here...')
-        return res.sendStatus(403).json({ "error": "wrong params" });
+        return res.status(403).json({ "error": "wrong params" });
     }
 
 
