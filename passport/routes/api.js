@@ -209,6 +209,17 @@ router.post('/carAddQR', passport.authenticate('jwt', { session: false }), (req,
         })
     }
 });
+router.post('/getAmbulanceUsers', passport.authenticate('jwt', { session: false }), (req, res) => {
+    if (req.user !== null && req.user.userType === "ambulance" && req.body.carId !== undefined) {
+        databaseController.getMedicalUsersAssociatedWithCar(req.body.carId, (error, value) => {
+            if (error) return json.sendStatus(404).json({ error: 'error 312' });
+            let finalValue = value.success;
+            return res.json(finalValue);
+        });
+    } else {
+        return json.sendStatus(404).json({ error: 'error 312-2' });
+    }
+});
 router.post('/getUserData', passport.authenticate('jwt', { session: false }), (req, res) => {
     //This will get the data associated with the current user associated with JWT
     //This should be using the user's unique id.
