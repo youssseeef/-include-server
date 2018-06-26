@@ -212,12 +212,12 @@ router.post('/carAddQR', passport.authenticate('jwt', { session: false }), (req,
 router.post('/getAmbulanceUsers', passport.authenticate('jwt', { session: false }), (req, res) => {
     if (req.user !== null && req.user.userType === "ambulance" && req.body.carId !== undefined) {
         databaseController.getMedicalUsersAssociatedWithCar(req.body.carId, (error, value) => {
-            if (error) return json.sendStatus(404).json({ error: 'error 312' });
+            if (error) return res.sendStatus(404).json({ error: 'error 312' });
             let finalValue = value.success;
             return res.json(finalValue);
         });
     } else {
-        return json.sendStatus(404).json({ error: 'error 312-2' });
+        return res.sendStatus(404).json({ error: 'error 312-2' });
     }
 });
 router.post('/getAmbulanceUser', passport.authenticate('jwt', { session: false }), (req, res) => {
