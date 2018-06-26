@@ -197,14 +197,14 @@ router.post('/carAddQR', passport.authenticate('jwt', { session: false }), (req,
 
         databaseController.addMedicalUserToQR(req.body.username, req.body.carId, (err, answer) => {
             if (err) {
-                return res.sendStatus(404).json({
+                return res.status(404).json({
                     error: err
                 });
             }
             return res.json(answer);
         })
     } else {
-        return res.sendStatus(404).json({
+        return res.status(404).json({
             error: "Check your request"
         })
     }
@@ -212,12 +212,14 @@ router.post('/carAddQR', passport.authenticate('jwt', { session: false }), (req,
 router.post('/getAmbulanceUsers', passport.authenticate('jwt', { session: false }), (req, res) => {
     if (req.user !== null && req.user.userType === "ambulance" && req.body.carId !== undefined) {
         databaseController.getMedicalUsersAssociatedWithCar(req.body.carId, (error, value) => {
-            if (error) return res.sendStatus(404).json({ error: 'error 312' });
+            if (error) {
+                return res.status(401).json({ error: 'Database error happened.' });
+            }
             let finalValue = value.success;
             return res.json(finalValue);
         });
     } else {
-        return res.sendStatus(404).json({ error: 'error 312-2' });
+        return res.status(401).json({ error: 'Not Authorized.' });
     }
 });
 router.post('/getAmbulanceUser', passport.authenticate('jwt', { session: false }), (req, res) => {
