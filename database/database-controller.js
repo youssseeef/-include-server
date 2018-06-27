@@ -72,8 +72,10 @@ function getMedicalUsersAssociatedWithCar(carId, callback) {
     });
 }
 
-function updateRescueData(newData, carId) {
-    client.hset('rescue', carId + '', JSON.stringify(newData));
+function updateRescueData(newData, rescueId, callback) {
+    client.hset('rescue', rescueId + '', JSON.stringify(newData), (error) => {
+        callback(error);
+    });
 }
 
 function getRescueData(carId, callback) {

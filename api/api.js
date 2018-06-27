@@ -177,6 +177,7 @@ app.post('/api/sos/rescue', (req, res) => {
 
     res.sendStatus(200);
 });
+
 /**
  * This is what the ambulance gets its assignments from - if any -
  */
@@ -303,5 +304,152 @@ app.post('/api/sos/updateAmbulance', (req, res) => {
     }
     //res.sendStatus(200);
 });
+
+
+
+
+/**
+ * Rescue Car Endpoints
+ * Basically another ambulance on steroids!
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * RESCUE AREA DO NOT GET CONFUSED MATE
+ */
+
+
+
+/**
+ * This is what the rescue gets its assignments from - if any -
+ */
+app.post('/api/sos/getRescueData', (req, res) => {
+    let reqVerified = req !== undefined &&
+        req.body !== undefined &&
+        req.body.rescueId !== undefined;
+    if (reqVerified) {
+        dbController.getRescueData(req.body.rescueId, (oldRescueData) => {
+            try {
+                return res.json(oldRescueData);
+            } catch (error) {
+                return res.status(404).json({
+                    error: "Not JSON data."
+                });
+
+            }
+        });
+    } else {
+        return res.status(404).json({
+            error: "wrong request"
+        });
+    }
+});
+
+//this should clear the accident from the rescue's side.
+app.post('/api/sos/endRescueAccident', (req, res) => {
+
+    let reqVerified = req !== undefined &&
+        req.body.rescueId !== undefined;
+    console.log(reqVerified);
+
+    if (reqVerified) {
+        dbController.getRescueData(req.body.rescueId, (oldRescueData) => {
+            console.log(oldRescueData);
+            if (oldRescueData === null || oldRescueData === undefined) {
+                return res.status(403).json({ error: "wrong params" });
+
+            } else {
+                let newRescueData = oldRescueData;
+                delete newRescueData.carAssigned;
+                console.log(newRescueData);
+                console.log(typeof newRescueData)
+                dbController.updateRescueData(newRescueData, req.body.rescueId, (error) => {
+                    console.log('HEREHERE');
+                    console.log(error)
+                    if (error === null || error === undefined) {
+                        console.log(error);
+                        return res.json({ updated: "accident ended" });
+                    } else {
+                        console.log('got here')
+                        return res.status(403).json({ error: "some error happened" });
+                    }
+
+                });
+            }
+        });
+    } else {
+        console.log('got here...')
+        return res.status(403).json({ "error": "wrong params" });
+    }
+});
+
+/**
+ * This is what the rescue updates its location
+ */
+
+app.post('/api/sos/updateRescue', (req, res) => {
+    console.log(req.body)
+    let reqVerified = req !== undefined &&
+        req.body !== undefined &&
+        req.body.longitude !== undefined &&
+        req.body.latitude !== undefined &&
+        req.body.rescueId !== undefined &&
+        req.body.rescueReadyToTake !== undefined;
+    if (reqVerified) {
+
+        dbController.getRescueData(req.body.rescueId, (oldRescueData) => {
+
+            let newRescueData = oldRescueData;
+            if (newRescueData === undefined || newRescueData === null) {
+
+                newRescueData = {};
+            }
+
+            newRescueData['location'] = {
+                longitude: parseFloat(parseFloat(req.body.longitude).toFixed(5)),
+                latitude: parseFloat(parseFloat(req.body.latitude).toFixed(5))
+            };
+
+            newRescueData['rescueReadyToTake'] = req.body.rescueReadyToTake;
+
+            dbController.updateRescueData(newRescueData, req.body.rescueId, (errrrr) => {
+
+                dbController.getRescueData(req.body.rescueId, (resData) => {
+                    console.log(resData)
+                    if (resData['carAssigned'] !== undefined) {
+                        console.log("RESPONSE SENT!")
+                        dbController.getCarData(resData['carAssigned']['carId'], (carData) => {
+                            return res.json({
+                                carAssigned: resData['carAssigned'],
+                                carLocation: carData['location']
+                            });
+                        })
+
+                    } else {
+
+                        return res.json({
+                            none: "none"
+                        });
+
+                    }
+                })
+            });
+        })
+
+
+    } else {
+
+        return res.sendStatus(403);
+    }
+    //res.sendStatus(200);
+});
+
+
+
+
+
+
 
 module.exports = app;
