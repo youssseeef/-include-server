@@ -116,6 +116,12 @@ function getAllAmbulances(callback) {
         callback(response);
     })
 }
+
+function getAllRescues(callback) {
+    client.hgetall('rescue', (err, response) => {
+        callback(response);
+    })
+}
 //sets the car assigned to the ambulance
 function setCarAssignedToAmbulance(ambulanceId, carId) {
     getAmbulanceData(ambulanceId, (data) => {
@@ -128,12 +134,32 @@ function setCarAssignedToAmbulance(ambulanceId, carId) {
         });
     })
 }
+//sets the car assigned to the rescue
+function setCarAssignedToRescue(rescueId, carId) {
+    getRescueData(rescueId, (data) => {
+        console.log(data);
+        data['carAssigned'] = {
+            carId
+        };
+        updateRescueData(data, rescueId, (error) => {
 
+        });
+    })
+}
 //sets the ambulance assigned to the car
 function setAmbulanceAssignedToCar(carId, ambulanceId) {
     getCarData(carId, (data) => {
         data['ambulanceAssigned'] = {
             ambulanceId
+        };
+        updateCarData(data, carId);
+    })
+}
+//sets the rescue assigned to the car
+function setRescueAssignedToCar(carId, rescueId) {
+    getCarData(carId, (data) => {
+        data['rescueAssigned'] = {
+            rescueId
         };
         updateCarData(data, carId);
     })
@@ -230,4 +256,7 @@ module.exports = {
     resetTheDemo,
     addMedicalUserToQR,
     getMedicalUsersAssociatedWithCar,
+    getAllRescues,
+    setRescueAssignedToCar,
+
 }

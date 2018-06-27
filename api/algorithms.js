@@ -16,12 +16,14 @@ function timeStampGenerator() {
  * @param {*The exact road the car's walking on when the accident occured. } affectedCarRoad 
  */
 function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
-
+    //TODO: check for the type if there are many. That would be helpful
+    //this todo is while doing the map.
     databaseController.getCarData(affectedCarId, (affectedCarData) => {
         let location = affectedCarData['location'];
         let accidentStatus = affectedCarData['accidentStatus'];
         let timestamp = affectedCarData['timestamp'];
         let ambulanceAssigned = affectedCarData['ambulanceAssigned'];
+        let rescueAssigned = affectedCarData['rescueAssigned'];
         //Check if there is no ambulance assignment to act upon it.
         //if there is one, that means the car has been assigned an ambulance.
         console.log("acdsad" + affectedCarData['ambulanceAssigned']);
@@ -52,6 +54,34 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                 });
             });
         }
+        if (rescueAssigned == undefined) {
+            console.log("GOT HERE! RESCUE");
+
+            databaseController.getAllRescues((rescues) => {
+                let rescueArray = [];
+                Object.keys(rescues).forEach(rescue => {
+                    rescueArray.push({
+                        id: rescue,
+                        value: rescueArray[rescue]
+                    });
+                });
+                rescueArray.forEach((element, index) => {
+                    console.log(index);
+                    console.log(element.value['location']);
+                    console.log(element.value['carAssigned'] == null);
+                    console.log(element.value['location'] !== null);
+                    if ((element.value['location'] !== null) == true && (element.value['carAssigned'] == null) == true) {
+                        //shouldn't be there but that's just for the MVP demo
+                        //this is the only ambulance in the system now! This should definitely be changed
+                        //in a final product.
+                        console.log("I AM GROOT")
+                        databaseController.setRescueAssignedToCar(affectedCarId, element.id);
+                        databaseController.setCarAssignedToAmbulance(element.id + "", affectedCarId);
+                    }
+                });
+            });
+        }
+
 
         //assign to an ambulance/service car according to error level.
         //0- check if car is already assigned
