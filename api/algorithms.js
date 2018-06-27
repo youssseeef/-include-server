@@ -67,6 +67,7 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                 });
                 rescueArray.forEach((element, index) => {
                     console.log(index);
+                    console.log(element)
                     console.log(element.value['location']);
                     console.log(element.value['carAssigned'] == null);
                     console.log(element.value['location'] !== null);
