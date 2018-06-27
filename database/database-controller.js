@@ -258,5 +258,5 @@ module.exports = {
     getMedicalUsersAssociatedWithCar,
     getAllRescues,
     setRescueAssignedToCar,
-
+    setCarAssignedToRescue
 }
