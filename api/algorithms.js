@@ -63,7 +63,7 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                 Object.keys(rescues).forEach(rescue => {
                     rescueArray.push({
                         id: rescue,
-                        value: rescueArray[rescue]
+                        value: rescues[rescue]
                     });
                 });
                 rescueArray.forEach((element, index) => {
