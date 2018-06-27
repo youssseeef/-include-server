@@ -58,6 +58,7 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
             console.log("GOT HERE! RESCUE");
 
             databaseController.getAllRescues((rescues) => {
+                console.log(rescues)
                 let rescueArray = [];
                 Object.keys(rescues).forEach(rescue => {
                     rescueArray.push({
