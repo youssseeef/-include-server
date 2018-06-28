@@ -66,6 +66,8 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                         value: rescues[rescue]
                     });
                 });
+                let minimumDistance = 99999999;
+                let minimumId = null;
                 rescueArray.forEach((element, index) => {
                     console.log(index);
                     console.log(element)
@@ -76,11 +78,20 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                         //shouldn't be there but that's just for the MVP demo
                         //this is the only ambulance in the system now! This should definitely be changed
                         //in a final product.
+
                         console.log("I AM GROOT")
-                        databaseController.setRescueAssignedToCar(affectedCarId, element.id);
-                        databaseController.setCarAssignedToRescue(element.id + "", affectedCarId);
+                        let currentDistance = locationHelpers.calcCrow(location.latitude,
+                            location.longitude, element.value['location'].latitude, element.value['location'].longitude);
+                        if (currentDistance < minimumDistance) {
+                            minimumDistance = currentDistance;
+                            minimumId = element.id;
+                        }
+                        //databaseController.setRescueAssignedToCar(affectedCarId, element.id);
+                        //databaseController.setCarAssignedToRescue(element.id + "", affectedCarId);
                     }
                 });
+                databaseController.setRescueAssignedToCar(affectedCarId, minimumId);
+                databaseController.setCarAssignedToRescue(minimumId + "", affectedCarId);
             });
         }
 
