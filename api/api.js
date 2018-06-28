@@ -176,6 +176,7 @@ app.post('/api/cars/getAssociatedQRs', (req, res) => {
 
 app.post('/api/cars/deleteMedicalUser', (req, res) => {
     if (req !== null && req.body !== null && req.body.carId !== null && req.body.userToBeDeleted) {
+        let userToBeDeleted = req.body.userToBeDeleted;
         dbController.getMedicalUsersAssociatedWithCar(req.body.carId, (err, response) => {
             if (err) return res.sendStatus(404);
             console.log(response)
