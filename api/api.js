@@ -179,10 +179,10 @@ app.post('/api/cars/deleteMedicalUser', (req, res) => {
         let userToBeDeleted = req.body.userToBeDeleted;
         dbController.getMedicalUsersAssociatedWithCar(req.body.carId, (err, response) => {
             if (err) return res.sendStatus(404);
-            console.log(response)
-            if (response.hasOwnProperty(userToBeDeleted)) {
-                delete response[userToBeDeleted];
-                setMedicalToValue(req.body.carId, response);
+            console.log(response.success)
+            if (response && success.success && response.success.hasOwnProperty(userToBeDeleted)) {
+                delete response.success[userToBeDeleted];
+                setMedicalToValue(req.body.carId, response.success);
                 res.sendStatus(200);
             } else {
                 return res.sendStatus(404);
