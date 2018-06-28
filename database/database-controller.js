@@ -73,7 +73,7 @@ function getMedicalUsersAssociatedWithCar(carId, callback) {
 }
 
 function setMedicalToValue(carId, Value, callback) {
-    client.hset('medicalAssociation', carId, Value, (err) => {
+    client.hset('medicalAssociation', carId, JSON.stringify(Value), (err) => {
         callback(err);
     });
 }
