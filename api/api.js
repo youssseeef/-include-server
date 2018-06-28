@@ -184,7 +184,7 @@ app.post('/api/cars/deleteMedicalUser', (req, res) => {
                 delete response.success[userToBeDeleted];
                 dbController.setMedicalToValue(req.body.carId, response.success, (err) => {
                     console.log(err);
-                    return res.sendStatus(404);
+                    if (err) res.sendStatus(404);
                 });
                 return res.sendStatus(200);
             } else {
