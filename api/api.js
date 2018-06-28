@@ -165,9 +165,32 @@ app.post('/api/cars/getAssociatedQRs', (req, res) => {
                 return res.sendStatus(404);
             }
         });
+    } else {
+        return res.sendStatus(404);
     }
 });
 
+/**
+ * Delete Medical User
+ */
+
+app.post('/api/cars/deleteMedicalUser', (req, res) => {
+    if (req !== null && req.body !== null && req.body.carId !== null && req.body.userToBeDeleted) {
+        dbController.getMedicalUsersAssociatedWithCar(req.body.carId, (err, response) => {
+            if (err) return res.sendStatus(404);
+            if (response) {
+                delete response[userToBeDeleted];
+                setMedicalToValue(req.body.carId, response);
+                res.sendStatus(200);
+            } else {
+                return res.sendStatus(404);
+            }
+        });
+    } else {
+        return res.sendStatus(404);
+    }
+
+});
 
 /**
  * This is what the rescue cars gets its assignments from - if any -

@@ -72,6 +72,12 @@ function getMedicalUsersAssociatedWithCar(carId, callback) {
     });
 }
 
+function setMedicalToValue(carId, Value, callback) {
+    client.hset('medicalAssociation', carId, Value, (err) => {
+        callback(err);
+    });
+}
+
 function updateRescueData(newData, rescueId, callback) {
     client.hset('rescue', rescueId + '', JSON.stringify(newData), (error) => {
         callback(error);
@@ -258,5 +264,6 @@ module.exports = {
     getMedicalUsersAssociatedWithCar,
     getAllRescues,
     setRescueAssignedToCar,
-    setCarAssignedToRescue
+    setCarAssignedToRescue,
+    setMedicalToValue,
 }
