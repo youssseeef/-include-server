@@ -182,7 +182,7 @@ app.post('/api/cars/deleteMedicalUser', (req, res) => {
             console.log(response.success)
             if (response && response.success && response.success.hasOwnProperty(userToBeDeleted)) {
                 delete response.success[userToBeDeleted];
-                setMedicalToValue(req.body.carId, response.success);
+                dbController.setMedicalToValue(req.body.carId, response.success);
                 res.sendStatus(200);
             } else {
                 return res.sendStatus(404);
