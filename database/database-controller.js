@@ -58,6 +58,7 @@ function addMedicalUserToQR(medicalUserId, carId, callback) {
     });
 }
 
+
 function getMedicalUsersAssociatedWithCar(carId, callback) {
     client.hget('medicalAssociation', carId, (err, value) => {
         if (err) callback(err, null);
