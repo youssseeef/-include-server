@@ -69,8 +69,11 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
 
                     }
                 });
-                databaseController.setAmbulanceAssignedToCar(affectedCarId, minimumId);
-                databaseController.setCarAssignedToAmbulance(minimumId + "", affectedCarId);
+                if (minimumId !== null) {
+                    databaseController.setAmbulanceAssignedToCar(affectedCarId, minimumId);
+                    databaseController.setCarAssignedToAmbulance(minimumId + "", affectedCarId);
+                }
+
             });
         }
         if (rescueAssigned == undefined) {
@@ -115,8 +118,11 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                         //databaseController.setCarAssignedToRescue(element.id + "", affectedCarId);
                     }
                 });
-                databaseController.setRescueAssignedToCar(affectedCarId, minimumId);
-                databaseController.setCarAssignedToRescue(minimumId + "", affectedCarId);
+                if (minimumId !== null) {
+                    databaseController.setRescueAssignedToCar(affectedCarId, minimumId);
+                    databaseController.setCarAssignedToRescue(minimumId + "", affectedCarId);
+                }
+
                 //databaseController.setRescueAssignedToCar(affectedCarId, minimumId);
                 //databaseController.setCarAssignedToRescue(minimumId + "", affectedCarId);
             });
