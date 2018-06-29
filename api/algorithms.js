@@ -115,8 +115,8 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                         //databaseController.setCarAssignedToRescue(element.id + "", affectedCarId);
                     }
                 });
-                databaseController.setAmbulanceAssignedToCar(affectedCarId, minimumId);
-                databaseController.setCarAssignedToAmbulance(minimumId + "", affectedCarId);
+                databaseController.setRescueAssignedToCar(affectedCarId, minimumId);
+                databaseController.setCarAssignedToRescue(minimumId + "", affectedCarId);
                 //databaseController.setRescueAssignedToCar(affectedCarId, minimumId);
                 //databaseController.setCarAssignedToRescue(minimumId + "", affectedCarId);
             });
