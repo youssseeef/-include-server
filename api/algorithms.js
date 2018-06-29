@@ -54,7 +54,7 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                     console.log("LOC LOC LOC DEV" + element.value.location);
                     console.log(element.value['carAssigned'] == null);
                     console.log(element.value['location'] !== null);
-                    if ((element.value['location'] !== null) == true && (element.value['carAssigned'] == null) == true) {
+                    if ((element.value['location'] !== null) == true && (element.value['carAssigned'] == null) == true && element.value['ambulanceReadyToTake'] == "true") {
                         //shouldn't be there but that's just for the MVP demo
                         //this is the only ambulance in the system now! This should definitely be changed
                         //in a final product.
@@ -99,7 +99,7 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                     console.log(element.value['location']);
                     console.log(element.value['carAssigned'] == null);
                     console.log(element.value['location'] !== null);
-                    if ((element.value['location'] !== null) == true && (element.value['carAssigned'] == null) == true) {
+                    if ((element.value['location'] !== null) == true && (element.value['carAssigned'] == null) == true && element.value['rescueReadyToTake'] == "true") {
                         //shouldn't be there but that's just for the MVP demo
                         //this is the only ambulance in the system now! This should definitely be changed
                         //in a final product.
