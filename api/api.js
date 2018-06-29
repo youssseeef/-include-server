@@ -130,7 +130,7 @@ app.post('/api/cars/update', (req, res) => {
                 dbController.updateCarData(oldCarData, req.body.carId)
             });
 
-            if (req.body.accidentStatus == 1 || req.body.accidentStatus == 3 || req.body.accidentStatus == 6 || req.body.accidentStatus == 7) {
+            if (req.body.accidentStatus == 1 || req.body.accidentStatus == 3 || req.body.accidentStatus == 6 || req.body.accidentStatus == 8) {
                 //act accordingly //i will pass it here
                 //
                 algorithms.accidentOccured(req.body.carId, {

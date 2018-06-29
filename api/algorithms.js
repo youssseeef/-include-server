@@ -76,7 +76,7 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
 
             });
         }
-        if (rescueAssigned == undefined && (accidentStatus == 1 || accidentStatus == 3 || (accidentStatus == 6))) {
+        if (rescueAssigned == undefined && (accidentStatus == 1 || accidentStatus == 3 || (accidentStatus == 6) || (accidentStatus == 8))) {
             console.log("GOT HERE! RESCUE");
 
             databaseController.getAllRescues((rescues) => {
