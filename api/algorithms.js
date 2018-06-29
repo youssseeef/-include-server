@@ -81,6 +81,7 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                         //in a final product.
 
                         console.log("I AM GROOT")
+                        console.log(location);
                         let currentDistance = locationHelpers.calcCrow(location.latitude,
                             location.longitude, element.value['location'].latitude, element.value['location'].longitude);
                         if (currentDistance < minimumDistance) {
