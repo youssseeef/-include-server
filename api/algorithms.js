@@ -20,6 +20,7 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
     //this todo is while doing the map.
     databaseController.getCarData(affectedCarId, (affectedCarData) => {
         let location = affectedCarData['location'];
+        console.log(location)
         let accidentStatus = affectedCarData['accidentStatus'];
         let timestamp = affectedCarData['timestamp'];
         let ambulanceAssigned = affectedCarData['ambulanceAssigned'];
