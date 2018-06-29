@@ -85,10 +85,17 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                         value: rescues[rescue]
                     });
                 });
-
+                let minimumDistance = 99999999;
+                let minimumId = null;
                 rescueArray.forEach((element, index) => {
                     console.log(index);
                     console.log(element)
+                    try {
+                        element.value = JSON.parse(element.value);
+
+                    } catch (error) {
+                        console.log("JSON PARSING ERROR: " + error);
+                    }
                     console.log(element.value['location']);
                     console.log(element.value['carAssigned'] == null);
                     console.log(element.value['location'] !== null);
@@ -98,11 +105,18 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                         //in a final product.
 
                         console.log("I AM GROOT")
-
+                        let currentDistance = locationHelpers.calcCrow(location.latitude,
+                            location.longitude, element.value['location']['latitude'], element.value['location']['longitude']);
+                        if (currentDistance < minimumDistance) {
+                            minimumDistance = currentDistance;
+                            minimumId = element.id;
+                        }
                         //databaseController.setRescueAssignedToCar(affectedCarId, element.id);
                         //databaseController.setCarAssignedToRescue(element.id + "", affectedCarId);
                     }
                 });
+                databaseController.setAmbulanceAssignedToCar(affectedCarId, minimumId);
+                databaseController.setCarAssignedToAmbulance(minimumId + "", affectedCarId);
                 //databaseController.setRescueAssignedToCar(affectedCarId, minimumId);
                 //databaseController.setCarAssignedToRescue(minimumId + "", affectedCarId);
             });
