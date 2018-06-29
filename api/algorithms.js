@@ -45,7 +45,7 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                     console.log(index);
                     console.log(element);
                     try {
-                        element = JSON.parse(element);
+                        element.value = JSON.parse(element.value);
 
                     } catch (error) {
                         console.log("JSON PARSING ERROR: " + error);
