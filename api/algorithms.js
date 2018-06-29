@@ -43,7 +43,8 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                 let minimumId = null;
                 ambulanceArray.forEach((element, index) => {
                     console.log(index);
-                    console.log(element.value['location']);
+                    console.log(element);
+                    console.log("LOC LOC LOC DEV" + element.value['location']);
                     console.log(element.value['carAssigned'] == null);
                     console.log(element.value['location'] !== null);
                     if ((element.value['location'] !== null) == true && (element.value['carAssigned'] == null) == true) {
