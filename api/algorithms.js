@@ -44,6 +44,13 @@ function accidentOccured(affectedCarId, affectedCarData2, affectedCarRoad) {
                 ambulanceArray.forEach((element, index) => {
                     console.log(index);
                     console.log(element);
+                    try {
+                        element = JSON.parse(element);
+
+                    } catch (error) {
+                        console.log("JSON PARSING ERROR: " + error);
+                    }
+
                     console.log("LOC LOC LOC DEV" + element.value.location);
                     console.log(element.value['carAssigned'] == null);
                     console.log(element.value['location'] !== null);
